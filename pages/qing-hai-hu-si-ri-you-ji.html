@@ -1,35 +1,40 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!--
-Design by Free CSS Templates
-http://www.freecsstemplates.org
-Released for free under a Creative Commons Attribution 2.5 License
-
-Name       : Brown Stone  
-Description: A two-column, fixed-width design with dark color scheme.
-Version    : 1.0
-Released   : 20100928
-
--->
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>青海湖四日游记</title>
-<link href="/theme/css/style.css" rel="stylesheet" type="text/css" media="screen" />
-<link href="/" type="application/atom+xml" rel="alternate" title="Welcome to My World ATOM Feed" />
+        <title>青海湖四日游记</title>
+        <meta charset="utf-8" />
+
+        <link rel="stylesheet" href="/theme/css/rdark.css" />
+	<link rel="stylesheet" type="text/css" href="/theme/css/main.css" />
+        <link href="/" type="application/atom+xml" rel="alternate" title="Welcome to My World ATOM Feed" /><!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	
+<!-- Using MathJax, with the delimiters $ -->
+<!-- Conflict with pygments for the .mo and .mi -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  "HTML-CSS": {
+  styles: {
+  ".MathJax .mo, .MathJax .mi": {color: "black ! important"}}
+  },
+  tex2jax: {inlineMath: [['$','$'], ['\\\\(','\\\\)']],processEscapes: true}
+  });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
-<body>
-<div id="wrapper">
-	<div id="page">
-		<div id="page-bgtop">
-			<div id="page-bgbtm">
-        
-<div id="content">
-<div class="post">    
-    <h2 class="title"><a href="/pages/qing-hai-hu-si-ri-you-ji.html">青海湖四日游记</a></h1>
-    <div style="clear: both;">&nbsp;</div>
-    <div class="entry">
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="">Welcome to My World <strong></strong></a></h1>
+        </header><!-- /#banner -->
+        <nav id="menu"><ul>
+            <li class="active"><a href="/pages/qing-hai-hu-si-ri-you-ji.html">青海湖四日游记</a></li>
+            <li><a href="/pages/yun-nan-qi-ri-you-ji.html">云南七日游记</a></li>
+        </ul></nav><!-- /#menu -->
+    <h1>青海湖四日游记</h1>
+    
+
     <hr />
 <h1>毕业旅行</h1>
 <p><img src="/images/hy.JPG" width = "600" height = "300" alt="hy" align=center /><p></p>
@@ -139,65 +144,11 @@ Released   : 20100928
 ps:文中的照片都没有修过，原凉我实在是没有时间，其实原图就够美了，感谢拍照片的阿毛、超儿纸、辉哥（排名不分先后嘻嘻）～～<p></p>
 <hr />
 <p><strong>毕业快乐 同学们！</strong></p>
-    </div>
-    </div>
-</div>
-
-				<div id="sidebar">
-					<div id="logo">
-						<h1><a href="">Welcome to My World</a></h1>
-					</div>
-					<div id="menu">
-						<ul>
-							<li ><a href="">Home</a></li>
-							<li ><a href="/archives.html">Archives</a></li>
-                                                            <li class="current_page_item"><a href="/pages/qing-hai-hu-si-ri-you-ji.html">青海湖四日游记</a></li>
-                                                            <li class="current_page_item"><a href="/pages/yun-nan-qi-ri-you-ji.html">云南七日游记</a></li>
-						</ul>
-					</div>
-					<ul>
-						<li>
-							<h2>Catégories</h2>
-							<ul>
-							</ul>
-						</li>
-						<li>
-							<h2>Blogroll</h2>
-							<ul>
-                                                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                                                            <li><a href="http://python.org/">Python.org</a></li>
-                                                            <li><a href="http://github.com/SixerWang">Mygithub</a></li>
-							</ul>
-						</li>
-                                                <li>
-                                                        <h2>Social</h2>
-                                                        <ul>
-                                                            <li><a href="/" rel="alternate">Flux Atom</a></li>
-                                                            <li><a href="https://twitter.com/Sixer_Wang">Twitter</a></li>
-                                                            <li><a href="bbs.byr.cn">BYR</a></li>
-                                                        </ul>
-                                                </li><!-- /.social -->
-						<li>
-						        <h2>Tags</h2>
-						        <ul>
-						        </ul>
-						</li>
-						
-						
-					</ul>
-				</div>
-				<!-- end #sidebar -->
-				<div style="clear: both;">&nbsp;</div>
-			</div>
-		</div>
-	</div>
-	<!-- end #page -->
-
-<div id="footer">
-	<p>Copyright (c) 2008 Sitename.com. All rights reserved. Design by <a href="http://www.freecsstemplates.org/">CSS Templates</a>.</p>
-	<p>Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>, which takes great advantages of <a href="http://python.org">python</a>.
-</p>
-</div>
-<!-- end #footer -->
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
+                which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+        </footer><!-- /#contentinfo -->
 </body>
 </html>
