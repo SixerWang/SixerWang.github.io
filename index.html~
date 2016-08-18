@@ -4,8 +4,8 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>test</title>
-  <meta name="author" content="test">
+  <title>Welcome to My World</title>
+  <meta name="author" content="SixerWang">
 
 
 
@@ -29,7 +29,7 @@
 
 <body>
   <header role="banner"><hgroup>
-  <h1><a href="/">test</a></h1>
+  <h1><a href="/">Welcome to My World</a></h1>
 </hgroup></header>
   <nav role="navigation"><ul class="subscription" data-subscription="rss">
 </ul>
@@ -76,16 +76,14 @@
 </aside>    </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - test -
+  Copyright &copy; 2013 - SixerWang -
   <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
 </p></footer>
- <div id="disqus_thread"></div>
 	<script type="text/javascript">
 	  var disqus_shortname = 'sixerwang-github-io';
 	  (function() {
 	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-            console.log(dsq);
 	    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 	   })();
 	</script>
