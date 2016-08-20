@@ -299,6 +299,7 @@
 	<script type="text/javascript">
 	  var disqus_shortname = 'sixerwang-github-io';
           var disqus_identifier = '/yun-nan-qi-ri-you-ji.html';
+          var disqus_url = '/yun-nan-qi-ri-you-ji.html';
           var disqus_title = '云南七日游记';
 	  (function() {
 	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
