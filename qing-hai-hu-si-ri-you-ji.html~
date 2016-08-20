@@ -232,7 +232,6 @@ ps:文中的照片都没有修过，原凉我实在是没有时间，其实原�
 	  var disqus_shortname = 'sixerwang-github-io';
           var disqus_identifier = '/qing-hai-hu-si-ri-you-ji.html';
           var disqus_url = '/qing-hai-hu-si-ri-you-ji.html';
-          var disqus_title = '青海湖四日游记';
 	  (function() {
 	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
