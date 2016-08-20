@@ -212,9 +212,6 @@ git push -u origin master   #将本地的改变推送到远程库中
 </p></footer>
 	<script type="text/javascript">
 	  var disqus_shortname = 'sixerwang-github-io';
-          var disqus_identifier = '/github-pagespelican-bo-ke-da-jian.html';
-          var disqus_url = '/github-pagespelican-bo-ke-da-jian.html';
-          var disqus_title = 'Github pages+pelican 博客搭建';
 	  (function() {
 	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
