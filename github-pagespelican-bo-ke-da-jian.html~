@@ -210,7 +210,6 @@ git push -u origin master   #将本地的改变推送到远程库中
   Copyright &copy; 2013 - SixerWang -
   <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
 </p></footer>
- <div id="disqus_thread"></div>
 	<script type="text/javascript">
 	  var disqus_shortname = 'sixerwang-github-io';
           var disqus_identifier = '/github-pagespelican-bo-ke-da-jian.html';
