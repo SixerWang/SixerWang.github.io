@@ -129,17 +129,17 @@ git push -u origin master   #将本地的改变推送到远程库中
 
 <h4>关于评论</h4>
 <p>pelican支持第三方的评论系统disqus，可以去<a href="https://disqus.com/">https://disqus.com/</a>注册一个站点，然后可以在https://shortname.disqus.com/admin/settings/general/查看自己的相关信息，记住自己的shortname。在pelicanconf.py文件中添加“DISQUS_SITENAME = shortname”即可。<p>
-在添加评论功能时自己遇到了挺多坑，第一个坑是在配置文件中加了相应的参数，但是最终的网页没有显示相应的评论部分。第二个坑是我用的模板的问题，生成的html文件缺少了‘<div id="disqus_thread"></div>’，导致disqus的js文件无法加载。大家可以查看output中生成的html文件，比如index.html,这是首页的网页，最后应该包括下面的code：<p>
+在添加评论功能时自己遇到了挺多坑，第一个坑是在配置文件中加了相应的参数，但是最终的网页没有显示相应的评论部分。第二个坑是我用的模板的问题，生成的html文件缺少了‘<code>&lt;div id="disqus_thread"&gt;&lt;/div&gt;</code>’，导致disqus的js文件无法加载。大家可以查看output中生成的html文件，比如index.html,这是首页的网页，最后应该包括下面的code：<p>
 <pre><code>
- <div id="disqus_thread"></div>
-    <script type="text/javascript">
+ <code>&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+    &lt;script type="text/javascript"&gt;
       var disqus_shortname = yourshortname;
       (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
        })();
-    </script>
+    &lt;/script&gt;</code>
 </code></pre>
 如果没有包括的话就可能是模板的问题，大家可以去disqus admin中查看installation的universal code部分，介绍了自己的网页中应该包括那些代码。网址是https://your-shortname.disqus.com/admin/settings/universalcode/ <p>
 注意，disqus在没有科学上网的情况下是不能加载出来的。<p></p>
