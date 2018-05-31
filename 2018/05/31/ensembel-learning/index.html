@@ -88,7 +88,7 @@
 <meta property="og:description" content="1. 集成学习集成学习(ensenble learning)是指通过构建并结合多个学习器来完成学习任务。一般来说，多个“弱学习器”结合起来的效果往往好于单个强学习器的效果，所以集成学习的应用非常广泛，比如著名的集成树模型系列。 集成学习按照个体学习器是否相同，可以分为同质集成和异质集成。同质集成的个体学习器是相同，比如都是决策树，个体学习器也往往被称为基学习器。异质集成中的个体学习器由不同的学习算">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://owxv9mpb2.bkt.clouddn.com/bias_variances.jpg">
-<meta property="og:updated_time" content="2018-05-31T11:23:25.000Z">
+<meta property="og:updated_time" content="2018-05-31T11:25:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈集成学习">
 <meta name="twitter:description" content="1. 集成学习集成学习(ensenble learning)是指通过构建并结合多个学习器来完成学习任务。一般来说，多个“弱学习器”结合起来的效果往往好于单个强学习器的效果，所以集成学习的应用非常广泛，比如著名的集成树模型系列。 集成学习按照个体学习器是否相同，可以分为同质集成和异质集成。同质集成的个体学习器是相同，比如都是决策树，个体学习器也往往被称为基学习器。异质集成中的个体学习器由不同的学习算">
@@ -499,9 +499,7 @@ L(y,  f_{m-1}(x) + \beta_mb(x;\gamma_m)) = (y - f_{m-1}(x) - \beta_mb(x;\gamma_m
 <h4 id="2-3-xgboost"><a href="#2-3-xgboost" class="headerlink" title="2.3 xgboost"></a>2.3 xgboost</h4><p>计划看一下<a href="https://arxiv.org/abs/1603.02754" target="_blank" rel="noopener">陈天奇的论文</a>再做进一步总结。</p>
 <p>xgboost和GBDT的主要不同体现在优化的目标上，GBDT优化的是梯度，相当于是一阶导数，而xgboost对loss进行了二阶泰勒展开，同时加上了正则化项作为优化目标，正则化项包括叶子节点个数以及叶子节点输出值的L2值。</p>
 <h3 id="3-典型集成模型对比"><a href="#3-典型集成模型对比" class="headerlink" title="3. 典型集成模型对比"></a>3. 典型集成模型对比</h3><p>rf、GBDT、xgboost、lightGBM</p>
-<ol>
-<li>random forest</li>
-</ol>
+<p><strong>random forest</strong></p>
 <ul>
 <li>优点<ul>
 <li>训练速度、准确率都较好</li>
@@ -514,9 +512,7 @@ L(y,  f_{m-1}(x) + \beta_mb(x;\gamma_m)) = (y - f_{m-1}(x) - \beta_mb(x;\gamma_m
 </ul>
 </li>
 </ul>
-<ol>
-<li>GBDT</li>
-</ol>
+<p><strong>GBDT</strong></p>
 <ul>
 <li>优点<ul>
 <li>灵活处理各种数据</li>
@@ -528,9 +524,7 @@ L(y,  f_{m-1}(x) + \beta_mb(x;\gamma_m)) = (y - f_{m-1}(x) - \beta_mb(x;\gamma_m
 </ul>
 </li>
 </ul>
-<ol>
-<li>xgboost和GBDT</li>
-</ol>
+<p><strong>xgboost和GBDT</strong></p>
 <ul>
 <li>GBDT是基学习器是回归树，而xgboost支持线性分类器</li>
 <li>GBDT的优化目标只利用了一阶导数，而xgboost利用了一阶导数和二阶导数</li>
@@ -540,9 +534,7 @@ L(y,  f_{m-1}(x) + \beta_mb(x;\gamma_m)) = (y - f_{m-1}(x) - \beta_mb(x;\gamma_m
 <li>缺失值的处理</li>
 <li>xgboost进行了并行计算，在特征选择的过程中用了排序方法</li>
 </ul>
-<ol>
-<li>为什么rf需要设置树的深度较深，而xgboost并不需要</li>
-</ol>
+<p><strong>为什么rf需要设置树的深度较深，而xgboost并不需要</strong></p>
 <ul>
 <li>rf是bagging方法，主要是降低方差，所以希望单个模型偏差较低，所以倾向于偏差低的单个模型</li>
 <li>xgboost是boosting方法，主要是为了降低偏差，所以希望单个模型方差较低，方差较低就希望单个模型不要太复杂，所以倾向于树的深度浅一些。</li>
