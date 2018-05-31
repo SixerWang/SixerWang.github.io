@@ -88,7 +88,7 @@
 <meta property="og:description" content="1. 集成学习集成学习(ensenble learning)是指通过构建并结合多个学习器来完成学习任务。一般来说，多个“弱学习器”结合起来的效果往往好于单个强学习器的效果，所以集成学习的应用非常广泛，比如著名的集成树模型系列。 集成学习按照个体学习器是否相同，可以分为同质集成和异质集成。同质集成的个体学习器是相同，比如都是决策树，个体学习器也往往被称为基学习器。异质集成中的个体学习器由不同的学习算">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://owxv9mpb2.bkt.clouddn.com/bias_variances.jpg">
-<meta property="og:updated_time" content="2018-05-31T09:15:49.000Z">
+<meta property="og:updated_time" content="2018-05-31T11:23:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈集成学习">
 <meta name="twitter:description" content="1. 集成学习集成学习(ensenble learning)是指通过构建并结合多个学习器来完成学习任务。一般来说，多个“弱学习器”结合起来的效果往往好于单个强学习器的效果，所以集成学习的应用非常广泛，比如著名的集成树模型系列。 集成学习按照个体学习器是否相同，可以分为同质集成和异质集成。同质集成的个体学习器是相同，比如都是决策树，个体学习器也往往被称为基学习器。异质集成中的个体学习器由不同的学习算">
@@ -445,7 +445,7 @@ L(y, f(x)) = exp(-yf(x))</script><p>根据前向分布算法</p>
 (G(x), \alpha_m) &= \mathop{argmin}\limits_{G(x), \alpha_m} \sum_iL(y_i,  f_{m-1}(x_i) + \alpha_mG(x_i)) \\
             &= \mathop{argmin}\limits_{G(x), \alpha_m} \sum_iexp(-y_if_{m-1}(x_i)-y_i\alpha_mG(x_i)) \\
             &= \mathop{argmin}\limits_{G(x), \alpha_m} \sum_iw_{mi}exp(-y_i\alpha_mG(x_i)) 
-\end{align*}</script><p>其中 $w<em>{mi} = exp(-y_if</em>{m-1}(_i))$，可以认为是每个样本的权重。</p>
+\end{align*}</script><p>其中 <script type="math/tex">w_{mi} = exp(-y_if_{m-1}(_i))</script>，可以认为是每个样本的权重。</p>
 <p>下面求解$\alpha_m$</p>
 <script type="math/tex; mode=display">
 \begin{align*}
