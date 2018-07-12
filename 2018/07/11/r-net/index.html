@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="机器学习," />
+  <meta name="keywords" content="机器阅读理解，SQuAD," />
 
 
 
@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="从线性回归说起 线性回归  $y = w^Tx + b$  x表示n维的特征向量，通过线性相加得到y值，可以使用使用最小二乘求解。  逻辑回归与线性回归的联系与区别  对数几率角度理解 逻辑回归是，通过线性回归的方法去预测对数几率，即：$ln\frac{y}{1-y} = w^Tx+b$ 求解得到 $y = \frac{1}{e^{-(w^Tx+b)}+1}$   线性回归形式预测的是几率大小，逻">
-<meta name="keywords" content="机器学习">
+<meta name="description" content="R-NET: MACHINE READING COMPREHENSION WITH SELF-MATCHING NETWORKS Introduction两个数据集  SQuAD SQuAD全称是Stanford Question Answering Dataset，是斯坦福大学提出的基于维基百科的阅读理解数据集，非常权威。  MS-MS-MARCO MS-MS-MARCO的全称是Microsof">
+<meta name="keywords" content="机器阅读理解，SQuAD">
 <meta property="og:type" content="article">
-<meta property="og:title" content="浅谈逻辑回归">
-<meta property="og:url" content="http://yoursite.com/2018/05/15/logistic-regression/index.html">
+<meta property="og:title" content="R-NET MACHINE READING COMPREHENSION WITH SELF-MATCHING NETWORKS">
+<meta property="og:url" content="http://yoursite.com/2018/07/11/r-net/index.html">
 <meta property="og:site_name" content="Dannyw&#39;s Blog">
-<meta property="og:description" content="从线性回归说起 线性回归  $y = w^Tx + b$  x表示n维的特征向量，通过线性相加得到y值，可以使用使用最小二乘求解。  逻辑回归与线性回归的联系与区别  对数几率角度理解 逻辑回归是，通过线性回归的方法去预测对数几率，即：$ln\frac{y}{1-y} = w^Tx+b$ 求解得到 $y = \frac{1}{e^{-(w^Tx+b)}+1}$   线性回归形式预测的是几率大小，逻">
+<meta property="og:description" content="R-NET: MACHINE READING COMPREHENSION WITH SELF-MATCHING NETWORKS Introduction两个数据集  SQuAD SQuAD全称是Stanford Question Answering Dataset，是斯坦福大学提出的基于维基百科的阅读理解数据集，非常权威。  MS-MS-MARCO MS-MS-MARCO的全称是Microsof">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://owxv9mpb2.bkt.clouddn.com/l1-l2.png">
-<meta property="og:updated_time" content="2018-05-31T07:27:36.000Z">
+<meta property="og:image" content="http://owxv9mpb2.bkt.clouddn.com/r-net.jpg">
+<meta property="og:updated_time" content="2018-07-12T14:07:59.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="浅谈逻辑回归">
-<meta name="twitter:description" content="从线性回归说起 线性回归  $y = w^Tx + b$  x表示n维的特征向量，通过线性相加得到y值，可以使用使用最小二乘求解。  逻辑回归与线性回归的联系与区别  对数几率角度理解 逻辑回归是，通过线性回归的方法去预测对数几率，即：$ln\frac{y}{1-y} = w^Tx+b$ 求解得到 $y = \frac{1}{e^{-(w^Tx+b)}+1}$   线性回归形式预测的是几率大小，逻">
-<meta name="twitter:image" content="http://owxv9mpb2.bkt.clouddn.com/l1-l2.png">
+<meta name="twitter:title" content="R-NET MACHINE READING COMPREHENSION WITH SELF-MATCHING NETWORKS">
+<meta name="twitter:description" content="R-NET: MACHINE READING COMPREHENSION WITH SELF-MATCHING NETWORKS Introduction两个数据集  SQuAD SQuAD全称是Stanford Question Answering Dataset，是斯坦福大学提出的基于维基百科的阅读理解数据集，非常权威。  MS-MS-MARCO MS-MS-MARCO的全称是Microsof">
+<meta name="twitter:image" content="http://owxv9mpb2.bkt.clouddn.com/r-net.jpg">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/15/logistic-regression/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/11/r-net/"/>
 
 
 
 
 
-  <title>浅谈逻辑回归 | Dannyw's Blog</title>
+  <title>R-NET MACHINE READING COMPREHENSION WITH SELF-MATCHING NETWORKS | Dannyw's Blog</title>
   
 
 
@@ -309,7 +309,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/logistic-regression/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/11/r-net/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="dannyw">
@@ -326,7 +326,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">浅谈逻辑回归</h1>
+          <h1 class="post-title" itemprop="name headline">R-NET MACHINE READING COMPREHENSION WITH SELF-MATCHING NETWORKS</h1>
         
 
         <div class="post-meta">
@@ -338,8 +338,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T00:11:10+08:00">
-                2018-05-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-11T21:28:21+08:00">
+                2018-07-11
               </time>
             
 
@@ -361,8 +361,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
+                  <a href="/categories/paper-reading/" itemprop="url" rel="index">
+                    <span itemprop="name">paper_reading</span>
                   </a>
                 </span>
 
@@ -378,7 +378,7 @@
 
           
           
-             <span id="/2018/05/15/logistic-regression/" class="leancloud_visitors" data-flag-title="浅谈逻辑回归">
+             <span id="/2018/07/11/r-net/" class="leancloud_visitors" data-flag-title="R-NET MACHINE READING COMPREHENSION WITH SELF-MATCHING NETWORKS">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -409,152 +409,93 @@
       
 
       
-        <h3 id="从线性回归说起"><a href="#从线性回归说起" class="headerlink" title="从线性回归说起"></a>从线性回归说起</h3><ol>
-<li><p>线性回归</p>
-<ul>
-<li>$y = w^Tx + b$</li>
-</ul>
-<p>x表示n维的特征向量，通过线性相加得到y值，可以使用使用最小二乘求解。</p>
-</li>
-<li><p>逻辑回归与线性回归的联系与区别</p>
+        <p><a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2017/05/r-net.pdf" target="_blank" rel="noopener">R-NET: MACHINE READING COMPREHENSION WITH SELF-MATCHING NETWORKS</a></p>
+<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p><strong>两个数据集</strong></p>
 <ol>
-<li>对数几率角度理解<ul>
-<li>逻辑回归是，通过线性回归的方法去预测对数几率，即：$ln\frac{y}{1-y} = w^Tx+b$</li>
-<li>求解得到 $y = \frac{1}{e^{-(w^Tx+b)}+1}$</li>
-</ul>
+<li><p>SQuAD</p>
+<p>SQuAD全称是Stanford Question Answering Dataset，是斯坦福大学提出的基于维基百科的阅读理解数据集，非常权威。</p>
 </li>
-<li>线性回归形式预测的是几率大小，逻辑回归将可能性大小映射到0-1之间<ul>
-<li>将 $y = w^Tx + b$ 认为y是预测的对数几率的大小，经过一个sigmoid将对数几率变为0-1之间。</li>
-<li>也就是说sigmoid将对数几率变为了y的概率</li>
-</ul>
+<li><p>MS-MS-MARCO</p>
+<p>MS-MS-MARCO的全称是Microsoft MAchine Reading COmprehension dataset，主要来自于Bing搜索。主要区别在于问题的答案可能不仅仅来自给定的文本。</p>
 </li>
 </ol>
-</li>
-<li><p>逻辑回归与线性可分</p>
+<p><strong>模型的主要构成</strong></p>
+<p>R-Net主要分为四个部分</p>
 <ol>
-<li>逻辑回归从线性回归来，这个线性回归预测的结果是对数几率，大于0是为正例，小于0时为负例，本质上没有改变线性分类超平面（$y = w^Tx + b$ 构成的超平面）。</li>
-<li>通过构造特征，映射到高维，映射到高维的线性可分。</li>
+<li>使用循环神经网络进行语义编码层，分别对问题和答案进行语义编码</li>
+<li>使用gated attention-based rnn来形成 question-aware的paragraph，将question的语义信息通过attention形式赋予到paragraph上，使得paragraph最后的语义编码是知道问题内容的；在该结构中，<strong>提出了门机制，挑选出对回答问题相关性强的语义信息部分</strong></li>
+<li>Self-match layer，提高paragraph内部每个部分对全局信息的理解</li>
+<li>pointer-network，用于预测答案的位置</li>
 </ol>
-</li>
-</ol>
-<h3 id="逻辑回归的公式推导"><a href="#逻辑回归的公式推导" class="headerlink" title="逻辑回归的公式推导"></a>逻辑回归的公式推导</h3><ol>
-<li><p>loss</p>
-<ul>
-<li>使用的是神奇的负的对数似然作为loss $J = -\frac{1}{m}\sum_i (y_iln(h(w^Tx^i) + (1-y_i)ln(1-h(w^Tx^i)))$</li>
-<li>对应的是二分类形式的交叉熵</li>
-</ul>
-</li>
-<li><p>梯度下降公式推导</p>
-<ul>
-<li>补充<ul>
-<li>$\sigma’(x) = \sigma(x)(1-\sigma(x))$</li>
-<li>$(1-\sigma(x))’ = -\sigma’(x)(1-\sigma(x))$</li>
-<li>令$\theta_i = y_iln(h(w^Tx^i) + (1-y_i)ln(1-h(w^Tx^i) $</li>
-</ul>
-</li>
-</ul>
+<h3 id="Detail"><a href="#Detail" class="headerlink" title="Detail"></a>Detail</h3><h4 id="结构图"><a href="#结构图" class="headerlink" title="结构图"></a>结构图</h4><p><img src="http://owxv9mpb2.bkt.clouddn.com/r-net.jpg" alt="r-net"></p>
+<h4 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h4><h5 id="1-QUESTION-AND-PASSAGE-ENCODER"><a href="#1-QUESTION-AND-PASSAGE-ENCODER" class="headerlink" title="1.QUESTION AND PASSAGE ENCODER"></a>1.QUESTION AND PASSAGE ENCODER</h5><p>令Question的embedding结果为<script type="math/tex">Q=\{e_t^Q\}_{t=1}^m</script>，Passage的embedding结果为<script type="math/tex">P = \{e_t^P\}_{t=1}^n</script>。考虑到未登录词(OOV)的问题，令Q和P的character-level的embedding结果分别为<script type="math/tex">Q_c = \{c_t^Q\}_{t=1}^m</script> 和 <script type="math/tex">P_c = \{c_t^P\}_{t=1}^n</script>。<strong>正常情况，Q和P的字符个数会远远大于词的个数，最后character-level的embeddings却和词的embedding长度保持一致，文中交代是将字符embedding的结果通过双向RNN，取最后的隐藏层输出作为character-level的embedding结果的。</strong></p>
+<p>最终encode的结果是：</p>
 <script type="math/tex; mode=display">
 \begin{align*}
-\frac{\partial J}{\partial w_j} &= -\frac{1}{m}\sum_i\frac{\partial \theta_i}{\partial w_j} \\
-\frac{\partial \theta_i}{\partial w_j} &= y_i\frac{1}{h(w^Tx^i)}h’ (w^Tx^i)x_j^i + (1-y_i)\frac{1}{1-h(w^Tx^i)}(-h'(w^Tx^i))x_j^i \\
-&= y_i\frac{1}{h(w^Tx^i)}h (w^Tx^i)(1-h(w^Tx^i))x_j^i + (1-y_i)\frac{1}{1-h(w^Tx^i)}(h(w^Tx^i)(h (w^Tx^i)-1))x_j^i \\
-&=(y_i-h(w^Tx^i))x_j^i \\
-\frac{\partial J}{\partial w_j} &= -\frac{1}{m}\sum_i\frac{\partial \theta_i}{\partial w_j} =  -\frac{1}{m}\sum_i(y_i-h(w^Tx^i))x_j^i \\
+
+u_t^Q = BiRNN_Q(u_{t-1}^Q, [e_t^Q, c_t^Q]) \\
+
+u_t^P = BiRNN_P(u_{t-1}^P, [e_t^P, c_t^P])
+
+\end{align*}</script><h5 id="2-GATED-ATTENTION-BASED-RECURRENT-NETWORKS"><a href="#2-GATED-ATTENTION-BASED-RECURRENT-NETWORKS" class="headerlink" title="2.GATED ATTENTION-BASED RECURRENT NETWORKS"></a>2.GATED ATTENTION-BASED RECURRENT NETWORKS</h5><p>分为两个步骤，先将question的语义赋予到passage上，得到带有question语义的passage语义编码<script type="math/tex">c_t</script>，再将<script type="math/tex">c_t</script>与原来的passage语义编码结合得到question-aware的passage。</p>
+<script type="math/tex; mode=display">
+c_t = att(u^Q, [u_t^P, v_{t-1}^P])</script><ul>
+<li><p>其中 <script type="math/tex">v_t^P</script> 是t时刻最后的passage的语义编码。因为每一时刻的 <script type="math/tex">c_t</script> 计算都需要依赖前一时刻时刻最终的 <script type="math/tex">v_{t-1}^P</script> </p>
+<ul>
+<li><script type="math/tex">s_j^t = V_Ttanh(W_u^Qu_j^Q + W_U^Pu_t^P + W_v^Pv_{t-1}^P)</script> Q中第j个词对P中第t个词的影响是多少</li>
+<li><script type="math/tex">a_i^t = exp(a_i^t) / sum_{j=1}^mexp(a_j^t)</script> 过softmax，求权重，在attention计算中经常使用</li>
+<li><script type="math/tex">c_t = \sum_{i=1}^m a_i^tu_i^Q</script> 得到passage每个位置带有对question理解得语义编码</li>
+</ul>
+</li>
+<li><p>$v_t$的计算引入了门机制</p>
+<script type="math/tex; mode=display">
+g_t = sigmoid(W_g[u_t^p, c_t])</script><script type="math/tex; mode=display">
+v_t^P = RNN(v_{t-1}^p, g_t\bigodot[u_t^p, c_t])</script></li>
+</ul>
+<p>$v_t$即为第二层最终的结果。</p>
+<h5 id="3-SELF-MATCHING-ATTENTION"><a href="#3-SELF-MATCHING-ATTENTION" class="headerlink" title="3.SELF -MATCHING ATTENTION"></a>3.SELF -MATCHING ATTENTION</h5><p>因为在考虑每个答案时，并没有注意到全文其他位置的信息，所以引入了self-match的机制。在self-match实现时，思路非常类似上面的gated attention-based rnn，只是将passage的attention对象从question换成了passage自己。</p>
+<p>令$h_t^P$是加入了self-match信息的最终编码</p>
+<script type="math/tex; mode=display">
+u_t^P = BiRNN_P(u_{t-1}^P, [e_t^P, c_t^P])</script><p>而 $c_t = att(v^P, v_t^P)$就是具体self-match的实现</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+
+s_j^t &= V_Ttanh(W_v^Pv_j^P + W_v^Pv_t^P) \\
+a_i^t &= exp(a_i^t) / sum_{j=1}^mexp(a_j^t) \\
+c_t &= \sum_{i=1}^m a_i^tv_i^P \\
+
+
+\end{align*}</script><p>是不是整个过程非常类似，同时$u_t^P$的计算会继续使用2中提出的门机制。</p>
+<h5 id="4-OUTPUT-LAYER"><a href="#4-OUTPUT-LAYER" class="headerlink" title="4.OUTPUT LAYER"></a>4.OUTPUT LAYER</h5><p>该层通过pointer netword输出最终的answer的位置，本来很简单，但是貌似r-net中弄的比较复杂。</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+
+s_j^t &= V_Ttanh(W_h^Ph_j^P + W_h^ah_{t-1}^a) \\
+a_i^t &= exp(a_i^t)/ \sum_{j=1}^nexp(a_j^t) \\
+p_t &= argmax(a_1^t, …, a_n^t) \\
+
+\end{align*}</script><p>其中$h_t^a$表示pointer network中rnn部分的hidden state</p>
+<script type="math/tex; mode=display">
+c_t = \sum_{i=1}^n\alpha_i^th_j^P</script><script type="math/tex; mode=display">
+h_t^a = RNN(h_{t-1}^a, c_t)</script><ul>
+<li>从论文推测，此处的rnn的timestep是2，分别是answer的开始和结束的位置。</li>
+</ul>
+<p>pointer network初始的hidden state <script type="math/tex">r^Q = att(u^Q, V_r^Q)</script></p>
+<script type="math/tex; mode=display">
+\begin{align*}
+
+s_j &= V_Ttanh(W_u^Qu_j^Q + W_r^Qv_r^Q) \\
+a_i &= exp(a_i^t)/ \sum_{j=1}^mexp(a_j^t) \\
+r^Q &= \sum_{i=1}^m\alpha_iu_i^Q \\
+
 \end{align*}</script><ul>
-<li>在此基础上，根据梯度下降公式<script type="math/tex; mode=display">
-w_j = w_j - \alpha \frac{\partial J}{\partial w_j}</script></li>
+<li>将question进行加权作为pointer network的输入。</li>
 </ul>
-</li>
-</ol>
-<h3 id="逻辑回归的正则化"><a href="#逻辑回归的正则化" class="headerlink" title="逻辑回归的正则化"></a>逻辑回归的正则化</h3><ol>
-<li><p>l1和l2</p>
-<ul>
-<li>L1：$||w||_1 = (\sum_i |w_i|)$</li>
-<li>L2: $||w||_2 = \sqrt(\sum_iw_i^2)$</li>
-</ul>
-</li>
-<li><p>l1和l2的区别以及为什么</p>
-<ol>
-<li><p>l1会使得参数变得稀疏，l2会使得参数变得更接近0</p>
-</li>
-<li><p>最终的loss为：$J = loss + ||w||_p$</p>
-</li>
-<li><p>图形解释</p>
-<p><img src="http://owxv9mpb2.bkt.clouddn.com/l1-l2.png" alt="l1-l2"></p>
-<ul>
-<li>一圈一圈的是loss的等高线(loss值)，方形和圆形分别是l1和l2的等高线，基于梯度下降思想，需要更加接近圆心，才会loss更小。</li>
-<li>对于l1来说，弧形会最先与轴上的点相交，对于l2来说，因为是圆弧，所以会先与圆相切</li>
-<li>那么结论就出来了，与轴上点相交时，w1的值就为零了，而与圆弧相交则使得w1和w2变得较小。</li>
-<li>可能loss的等高线并不是弧形，这点其实需要思考，<strong>该部分不够严谨，对于l1的图来说，其实是存在与弧线相切的线的，比如在靠近圆心的位置，此时，w1和w2并不为零，所以可能理解有偏差，仅供参考</strong></li>
-</ul>
-</li>
-<li><p>从参数更新公式理解</p>
-<ul>
-<li><p>参数更新公式为 $w = w - \alpha \frac{\partial J}{\partial w}$ $\alpha$是学习率，偏导项是梯度，可以分为两个部分，一个部分是原本的loss，一个部分是正则化项的梯度。对于l1和l2正则来说，前半部分都是相同的，只有后半部分不一样</p>
-</li>
-<li><p>对于l1正则化来说，</p>
-<p>​</p>
-<p>​</p>
-<script type="math/tex; mode=display">
-\begin{align*} 
-\frac{\partial ||w||_1}{\partial w} &= 1 \ \ if \ w > 0 \\
-\frac{\partial ||w||_1}{\partial w} &= -1 \ \ if \ w < 0
-\end{align*}</script><ul>
-<li>根据参数更新公式$w = w - \alpha \frac{\partial J}{\partial w}$，当w大于0时，正则化项的梯度为1，会使w往0的方向靠近，当w小于0时，正则化项的梯度为-1，同样会使得w往0的方向靠近，直至为0</li>
-</ul>
-</li>
-<li><p>对于l2正则化来说</p>
-<script type="math/tex; mode=display">
-\frac{\partial ||w||_2}{\partial w} = 2w</script><ul>
-<li>同样根据参数更新公式$w = w - \alpha \frac{\partial J}{\partial w}$，$w = (1 - 2\alpha)w $ ，在原有w基础上乘以一个系数，会使得w接近于0，而不是变为0</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-</li>
-</ol>
-<h3 id="逻辑回归与极大似然估计"><a href="#逻辑回归与极大似然估计" class="headerlink" title="逻辑回归与极大似然估计"></a>逻辑回归与极大似然估计</h3><p>本质上来说，逻辑回归就是极大似然估计。因为逻辑回归的损失函数是负的对数似然函数，本质上的优化，也是使得对数似然函数尽可能大，也就是极大似然法的思想。</p>
-<h3 id="逻辑回归与最大熵模型"><a href="#逻辑回归与最大熵模型" class="headerlink" title="逻辑回归与最大熵模型"></a>逻辑回归与最大熵模型</h3><p>逻辑回归可以认为是特殊形式的最大熵模型。</p>
-<p><strong>逻辑回归</strong></p>
-<script type="math/tex; mode=display">
-\begin{align*}
-P(y=1|x) &= \frac{1}{e^{-w^Tx+b}+1} \\
-P(y=0|x) &= \frac{e^{-w^Tx+b}}{e^{-w^Tx+b}+1}
-\end{align*}</script><p><strong>最大熵模型</strong></p>
-<script type="math/tex; mode=display">
-\begin{align*}
-P(y|x) &= \frac{1}{Z(x)} \times e^{\sum_iw_if_i(x,y)} \\
-Z(x) &= \sum_y e^{\sum_iw_if_i(x,y)}
-\end{align*}</script><p>如果令</p>
-<script type="math/tex; mode=display">
-\begin{equation}
-f_i(x, y)=\left\{
-\begin{aligned}
-& -x_i & y = 1 \\
-& 0  & y = 0
-\end{aligned}
-\right.
-\end{equation}</script><p>则可以由最大熵模型推导得到</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-P(y=0|x) &= \frac{1}{Z(x)} \times e^{\sum_iw_if_i(x,0)} = \frac{1}{e^{\sum_iw_if_i(x,0)}+ e^{\sum_iw_if_i(x,1)}} = \frac{1}{1+e^{-w^Tx}}\\
-P(y=1|x) &= \frac{1}{Z(x)} \times e^{\sum_iw_if_i(x,y)} = \frac{e^{\sum_iw_if_i(x,1)}}{e^{\sum_iw_if_i(x,1)}+ e^{\sum_iw_if_i(x,1)}} = \frac{e^{-w^Tx}}{1+e^{-w^Tx}}\\
-\end{align*}</script><p>根据上面的推导，我们可以得到逻辑回归的形式，也就是特殊形式的最大熵模型(特征函数以及y是特征的)</p>
-<h3 id="特征交叉和特征离散化"><a href="#特征交叉和特征离散化" class="headerlink" title="特征交叉和特征离散化"></a>特征交叉和特征离散化</h3><p>逻辑回归只能解决线性可分问题，所以对于一个现实问题，要想取得比较好的效果，一般会进行特征交叉以及特征离散化。特征离散化是将连续特征(离散特征也可以)的每个特征值都变为一维，类似变成了ont-hot向量。</p>
-<p>特征交叉是指某些特征之间是具有联系的，有时候可以将特征与特征联合进行考虑，即交叉得到新的特征。具体见fm和ffm算法。</p>
-<p><a href="https://blog.csdn.net/lujiandong1/article/details/52412123" target="_blank" rel="noopener">具体特征交叉和离散化在CTR中的应用</a></p>
-<h3 id="逻辑回归的优缺点"><a href="#逻辑回归的优缺点" class="headerlink" title="逻辑回归的优缺点"></a>逻辑回归的优缺点</h3><p>没有找到详细的解释，有大概几点，有详细解释再补充吧。</p>
-<p>优点</p>
-<ol>
-<li>计算快</li>
-<li>结果是概率形式，可以知道可能性大小</li>
-<li>可以并行化计算，工业上用的比较多</li>
-</ol>
-<p>缺点</p>
-<ol>
-<li>容易欠拟合，分类或者回归的精度不高</li>
-<li>特征空间大效果不好</li>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>character embedding，如果只用subword还是不能解决OOV的问题，character能够完全解决OOV，但是效果不一定会好；将character embedding作为一维特征是比较好的思路</li>
+<li>attention的方式没什么创新，加入了门机制，本质上其实是增加了参数，使得网络更加复杂了。有没有文中所说的信息筛选的效果值得思考</li>
+<li>self-match</li>
+<li>三层均采用了相同的attention的计算方式</li>
 </ol>
 
       
@@ -573,7 +514,7 @@ P(y=1|x) &= \frac{1}{Z(x)} \times e^{\sum_iw_if_i(x,y)} = \frac{e^{\sum_iw_if_i(
       
         <div class="post-tags">
           
-            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+            <a href="/tags/机器阅读理解，SQuAD/" rel="tag"># 机器阅读理解，SQuAD</a>
           
         </div>
       
@@ -586,8 +527,8 @@ P(y=1|x) &= \frac{1}{Z(x)} \times e^{\sum_iw_if_i(x,y)} = \frac{e^{\sum_iw_if_i(
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/08/leetcode/" rel="next" title="leetcode">
-                <i class="fa fa-chevron-left"></i> leetcode
+              <a href="/2018/06/27/conv-rnn/" rel="next" title="A Hybrid Framework for Text Modeling with Convolutional RNN">
+                <i class="fa fa-chevron-left"></i> A Hybrid Framework for Text Modeling with Convolutional RNN
               </a>
             
           </div>
@@ -595,10 +536,6 @@ P(y=1|x) &= \frac{1}{Z(x)} \times e^{\sum_iw_if_i(x,y)} = \frac{e^{\sum_iw_if_i(
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/31/ensembel-learning/" rel="prev" title="浅谈集成学习">
-                浅谈集成学习 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -734,7 +671,7 @@ P(y=1|x) &= \frac{1}{Z(x)} \times e^{\sum_iw_if_i(x,y)} = \frac{e^{\sum_iw_if_i(
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#从线性回归说起"><span class="nav-number">1.</span> <span class="nav-text">从线性回归说起</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑回归的公式推导"><span class="nav-number">2.</span> <span class="nav-text">逻辑回归的公式推导</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑回归的正则化"><span class="nav-number">3.</span> <span class="nav-text">逻辑回归的正则化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑回归与极大似然估计"><span class="nav-number">4.</span> <span class="nav-text">逻辑回归与极大似然估计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑回归与最大熵模型"><span class="nav-number">5.</span> <span class="nav-text">逻辑回归与最大熵模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特征交叉和特征离散化"><span class="nav-number">6.</span> <span class="nav-text">特征交叉和特征离散化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑回归的优缺点"><span class="nav-number">7.</span> <span class="nav-text">逻辑回归的优缺点</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Detail"><span class="nav-number">2.</span> <span class="nav-text">Detail</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#结构图"><span class="nav-number">2.1.</span> <span class="nav-text">结构图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#细节"><span class="nav-number">2.2.</span> <span class="nav-text">细节</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-QUESTION-AND-PASSAGE-ENCODER"><span class="nav-number">2.2.1.</span> <span class="nav-text">1.QUESTION AND PASSAGE ENCODER</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-GATED-ATTENTION-BASED-RECURRENT-NETWORKS"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.GATED ATTENTION-BASED RECURRENT NETWORKS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-SELF-MATCHING-ATTENTION"><span class="nav-number">2.2.3.</span> <span class="nav-text">3.SELF -MATCHING ATTENTION</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-OUTPUT-LAYER"><span class="nav-number">2.2.4.</span> <span class="nav-text">4.OUTPUT LAYER</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
