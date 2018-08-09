@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="NLP," />
 
 
 
@@ -79,16 +79,18 @@
 
 
 
-<meta name="description" content="wangliubupt@163.com">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Dannyw&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/categories/机器学习/index.html">
+<meta name="description" content="秋招在即，虽然生活艰难，还是需要好好复习。总结一份自己的NLP知识框架。 传统机器学习 逻辑回归  基本概念 逻辑回归的梯度下降公式推导 L1和L2正则的区别 逻辑回归与极大似然估计 逻辑回归与最大熵模型 关系 如何推导 逻辑回归为什么要用sigmoid   逻辑回归与特征离散化、特征交叉 fm 和 ffm算法     决策树  ID3算法 特征选择标准：信息增益 特征选择标准的特点 具体算法">
+<meta name="keywords" content="NLP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自然语言处理基础知识框架">
+<meta property="og:url" content="http://yoursite.com/2018/08/10/nlp-guideline/index.html">
 <meta property="og:site_name" content="Dannyw&#39;s Blog">
-<meta property="og:description" content="wangliubupt@163.com">
+<meta property="og:description" content="秋招在即，虽然生活艰难，还是需要好好复习。总结一份自己的NLP知识框架。 传统机器学习 逻辑回归  基本概念 逻辑回归的梯度下降公式推导 L1和L2正则的区别 逻辑回归与极大似然估计 逻辑回归与最大熵模型 关系 如何推导 逻辑回归为什么要用sigmoid   逻辑回归与特征离散化、特征交叉 fm 和 ffm算法     决策树  ID3算法 特征选择标准：信息增益 特征选择标准的特点 具体算法">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-09T16:32:03.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Dannyw&#39;s Blog">
-<meta name="twitter:description" content="wangliubupt@163.com">
+<meta name="twitter:title" content="自然语言处理基础知识框架">
+<meta name="twitter:description" content="秋招在即，虽然生活艰难，还是需要好好复习。总结一份自己的NLP知识框架。 传统机器学习 逻辑回归  基本概念 逻辑回归的梯度下降公式推导 L1和L2正则的区别 逻辑回归与极大似然估计 逻辑回归与最大熵模型 关系 如何推导 逻辑回归为什么要用sigmoid   逻辑回归与特征离散化、特征交叉 fm 和 ffm算法     决策树  ID3算法 特征选择标准：信息增益 特征选择标准的特点 具体算法">
 
 
 
@@ -118,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/机器学习/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/10/nlp-guideline/"/>
 
 
 
 
 
-  <title>Category: 机器学习 | Dannyw's Blog</title>
+  <title>自然语言处理基础知识框架 | Dannyw's Blog</title>
   
 
 
@@ -153,7 +155,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -291,83 +293,378 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>机器学习<small>Category</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/10/nlp-guideline/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="dannyw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://owxv9mpb2.bkt.clouddn.com/cyh.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dannyw's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/05/31/ensembel-learning/" itemprop="url">
-              
-                <span itemprop="name">浅谈集成学习</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">自然语言处理基础知识框架</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-31T15:56:05+08:00"
-              content="2018-05-31" >
-          05-31
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-10T00:27:08+08:00">
+                2018-08-10
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面试/" itemprop="url" rel="index">
+                    <span itemprop="name">面试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/08/10/nlp-guideline/" class="leancloud_visitors" data-flag-title="自然语言处理基础知识框架">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+      
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/15/logistic-regression/" itemprop="url">
-              
-                <span itemprop="name">浅谈逻辑回归</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-15T00:11:10+08:00"
-              content="2018-05-15" >
-          05-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
+        <p>秋招在即，虽然生活艰难，还是需要好好复习。总结一份自己的NLP知识框架。</p>
+<h3 id="传统机器学习"><a href="#传统机器学习" class="headerlink" title="传统机器学习"></a>传统机器学习</h3><ol>
+<li><p>逻辑回归</p>
+<ul>
+<li>基本概念</li>
+<li>逻辑回归的梯度下降公式推导</li>
+<li>L1和L2正则的区别</li>
+<li>逻辑回归与极大似然估计</li>
+<li>逻辑回归与最大熵模型<ul>
+<li>关系</li>
+<li>如何推导</li>
+<li>逻辑回归为什么要用sigmoid</li>
+</ul>
+</li>
+<li>逻辑回归与特征离散化、特征交叉<ul>
+<li>fm 和 ffm算法</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>决策树</p>
+<ol>
+<li>ID3算法<ul>
+<li>特征选择标准：信息增益</li>
+<li>特征选择标准的特点</li>
+<li>具体算法</li>
+</ul>
+</li>
+<li>C4.5算法<ul>
+<li>信息增益比</li>
+<li>信息增益比特点</li>
+<li>具体算法</li>
+</ul>
+</li>
+<li>CART<ul>
+<li>二叉树</li>
+<li>特征选择标准<ul>
+<li>决策树：基尼系数</li>
+<li>回归树：最小二乘法</li>
+</ul>
+</li>
+<li>具体算法</li>
+</ul>
+</li>
+<li>剪枝<ul>
+<li>预剪枝</li>
+<li>后剪枝</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>K-近邻</p>
+<ul>
+<li>K值选择</li>
+<li>距离度量</li>
+<li>决策方法</li>
+<li>实现方法<ul>
+<li>kd树</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>支持向量机</p>
+<ul>
+<li>目标函数</li>
+<li>对偶问题求解公式推导</li>
+<li>核函数</li>
+<li>lr和svm的异同</li>
+</ul>
+</li>
+<li>朴素贝叶斯</li>
+<li>集成学习</li>
+<li>聚类</li>
+</ol>
+<h3 id="统计自然语言处理算法"><a href="#统计自然语言处理算法" class="headerlink" title="统计自然语言处理算法"></a>统计自然语言处理算法</h3><ol>
+<li><p>最大熵模型</p>
+<ul>
+<li>模型形式<ul>
+<li>特征约束</li>
+<li>最大熵</li>
+</ul>
+</li>
+<li>指数形式<ul>
+<li>原问题是有约束的最大化问题</li>
+<li>通过拉格朗日方程转换为无约束优化问题</li>
+</ul>
+</li>
+<li>最大熵模型和逻辑回归关系</li>
+</ul>
+</li>
+<li><p>EM算法</p>
+<ul>
+<li>基本概念<ul>
+<li>可以从抛硬币问题开始回忆</li>
+<li>E步和M步</li>
+</ul>
+</li>
+<li>两个点<ul>
+<li>初值敏感</li>
+<li>Q函数很重要</li>
+</ul>
+</li>
+<li>EM的收敛性证明</li>
+<li>应用场景<ul>
+<li>聚类算法</li>
+<li>HMM的参数训练</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>语言模型</p>
+<ul>
+<li>基本概念</li>
+<li>平滑方法</li>
+<li>有时间关注基于Transformer的LM</li>
+</ul>
+</li>
+<li><p>HMM</p>
+<ul>
+<li>关于马尔科夫过程<ul>
+<li>一阶马尔科夫链</li>
+<li>转移概率矩阵</li>
+<li>齐次马氏链</li>
+<li>遍历性</li>
+</ul>
+</li>
+<li>HMM的模型定义</li>
+<li>三个问题<ul>
+<li>已知模型-&gt;输出状态概率<ul>
+<li>前向算法</li>
+<li>后向算法</li>
+<li>前向和后向算法结合</li>
+</ul>
+</li>
+<li>已知模型和输出状态-&gt;概率最大的隐藏状态<ul>
+<li>维特比算法</li>
+</ul>
+</li>
+<li>只知道输出状态-&gt;估计模型参数<ul>
+<li>参数估计问题</li>
+<li>EM算法<ul>
+<li>E步</li>
+<li>M步</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>应用</li>
+</ul>
+</li>
+<li><p>CRF</p>
+<ul>
+<li>为什么要引入条件随机场(CRF和HMM的异同点)<ul>
+<li>HMM是生成式，CRF是判别式</li>
+<li>输出序列的相关性</li>
+<li>额外的特征</li>
+<li>标注偏置</li>
+</ul>
+</li>
+<li>条件随机场的定义</li>
+<li>线性链条件随机场</li>
+<li>参数化形式<ul>
+<li>简化形式</li>
+<li>矩阵形式</li>
+</ul>
+</li>
+<li>预测算法<ul>
+<li>改写目标函数，将特征函数合并</li>
+<li>维特比算法</li>
+</ul>
+</li>
+<li>学习算法(同最大熵的学习算法)<ul>
+<li>改进的迭代尺度法</li>
+<li>拟牛顿法</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>word2vec, GloVec</strong></p>
+<ul>
+<li>Skip-gram</li>
+<li>CBOW</li>
+<li>GloVec</li>
+</ul>
+</li>
+<li>LDA,SVD</li>
+</ol>
+<h3 id="深度学习基础"><a href="#深度学习基础" class="headerlink" title="深度学习基础"></a>深度学习基础</h3><h3 id="常见NLP模型"><a href="#常见NLP模型" class="headerlink" title="常见NLP模型"></a>常见NLP模型</h3><h3 id="算法与数据结构"><a href="#算法与数据结构" class="headerlink" title="算法与数据结构"></a>算法与数据结构</h3><h3 id="常见框架"><a href="#常见框架" class="headerlink" title="常见框架"></a>常见框架</h3><h3 id="语言"><a href="#语言" class="headerlink" title="语言"></a>语言</h3><ol>
+<li>c++</li>
+<li>python</li>
+</ol>
+<h3 id="其他基础知识"><a href="#其他基础知识" class="headerlink" title="其他基础知识"></a>其他基础知识</h3><ol>
+<li>数据库</li>
+<li>设计模式</li>
+<li>计算机网络</li>
+<li>操作系统</li>
+</ol>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/11/r-net/" rel="next" title="R-NET Machine Reading Comprehension With Self-Matching Networks">
+                <i class="fa fa-chevron-left"></i> R-NET Machine Reading Comprehension With Self-Matching Networks
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -375,6 +672,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -395,8 +696,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -460,6 +770,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#传统机器学习"><span class="nav-number">1.</span> <span class="nav-text">传统机器学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统计自然语言处理算法"><span class="nav-number">2.</span> <span class="nav-text">统计自然语言处理算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深度学习基础"><span class="nav-number">3.</span> <span class="nav-text">深度学习基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见NLP模型"><span class="nav-number">4.</span> <span class="nav-text">常见NLP模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法与数据结构"><span class="nav-number">5.</span> <span class="nav-text">算法与数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见框架"><span class="nav-number">6.</span> <span class="nav-text">常见框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语言"><span class="nav-number">7.</span> <span class="nav-text">语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他基础知识"><span class="nav-number">8.</span> <span class="nav-text">其他基础知识</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -687,6 +1013,10 @@ $(function() {
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
