@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[Attention Is All U Need]]></title>
-    <url>%2F2018%2F08%2F12%2Fattention-is-all-U-need%2F</url>
-    <content type="text"><![CDATA[IntroductionRNN, LSTM, GRU在语言模型和机器翻译等领域都达到了state-of-the-art的水平。RNN模型存在不能并行计算和长距离依赖的问题。现在，attention机制几乎成为了RNN模型的标配。 本文提出了Transformer的新结构，完全避开了循环的结构，仅仅依赖于attention机制来获取input和output之间的依赖。简而言之，Transformer是又快又好。 Background传统的减少串行计算的方法操作的数目和计算位置之间的距离有关，而Transformer是常数级别的计算量。 Self-attention 根据序列的不同位置计算对序列的表达，已经别广泛地运用到了很多NLP领域。 Model Architecture在传统的encoder-decoder中，encoder对input进行编码生成语义C，decoder将C解码为我们需要的目标Y。 Transformer的encoder和decoder都采用了stacked self-attention and point-wise, fully connected layers。 Encoder and Decoder Stacks Encoder encoder由6层(N=6)堆叠而成，每一层由两个sublayer构成。第一个sublayer是Multi-Head Attention，第二个sublayer是Feed Forward。两个sublayer都会引入residual和layer normalization。 简单来说，公式就是 LayerNorm(x + sublayer(x))。为了可以实现residual，我们设置所有的output的维度为512($d_{model} = 512$) Decoder decoder也是由6层(N=6)堆叠而成，每一层除了encoder部分的两个sublayer，还加入了一个Multi-Head Attention用来处理encoder部分的输出。第一个Multi-Head Attention进行了细微修改，加入了mask，用来保证每个位置预测结果时只会将该位置之前的结果纳入计算(已经预测过的位置)。 Attention Scaled Dot-Product Attention 如上面左图所示，直接上公式： Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt d_k})Vquery对每个key点乘，然后做一个缩放操作，然后做softmax乘以V。相当于计算每个K的相似度，根据相似度计算V的加权平均。 有两种用的比较多的attention计算方法，一种是additive attention(使用前向网络计算)，一种是dot-product。两种的理论实践复杂度很接近，但是dot-product时间和空间效率更高。 在$d_k$范围比较大的时候，additive attention的效果更好，因为dot-product在计算softmax时，如果值较大会导致softmax具有小的梯度，所以需要进行除以$\sqrt d_k$的缩放。 补充 softmax的梯度： \begin{align*} softmax(x_i) & = Z(x_i) = \frac{e^{x_i}}{\sum _je^{x_j}} \\ \frac{\partial Z(x_i)}{\partial x_i} &= \frac{e^{x_i} \sum _je^{x_j} - e^{x_i} e^{x_j} }{(\sum _je^{x_j})^2} = Z(x_i)(1 - Z(x_j) )\\ \frac{\partial Z(x_i)}{\partial x_j} &= \frac{- e^{x_i} e^{x_j} }{(\sum _je^{x_j})^2} = -Z(x_i) Z(x_j) \end{align*} Multi-Head Attention 作者发现并行使用不同的线性层处理K, Q, V, 并且再并行通过attention model效果会比较好。Multi-head attention allows the model to jointly attend to information from different representation subspaces at different positions 上公式： MultiHead(Q, K, V) = Concat(head1, head2, ..., headh)W_O \\ where\ headi = Attention(QW_i^Q, KW_i^K, VW_i^V)其中 W_O \in R^{hd_v\times d_v}, W_i^Q \in R^{d_m \times d_k},W_i^K \in R^{d_m \times d_k},W_i^V \in R^{d_m \times d_v},我们设置了h=8个并行的结构，同时使得 d_k = d_v = d_{model} / 8 = 64​。因为每个head的维度被降低了，所以总得计算量和之前是很相似的。 Applications of Attention in our Model Transformer有三种使用Multi-Head Attention的方式： queris来自于decoder的上一层decoder的输出，keys和value来自于encoder部分的输出 encoder部分是self-attention, 所有的query，key，value均来自于上一层的输出。每个位置都可以attend到所有的位置。 decoder部分和encoder部分一样，只不过为了保证自回归性，需要引入mask保证不计算非法的值。 Position-wise Feed-Forward Networks每个attention sublayer后面都会接一个全连接的前向网络，公式为： FFN(x) = max(0, xW_1+b_1)W_2 + b_2另一种解释是两层卷积核size为1的卷积。输入和输出均为d_{model}=512,d_{ff} = 2048。 Embeddings and Softmax输入和输出需要embedding layer，共享权重，同时将这些权重乘以 $\sqrt {d_{model}}$ Positional Encoding因为模型不适用循环神经网络或者卷积，所以需要某种机制来包含词之间的位置信息。 不太懂具体是怎么计算的，懂了再补充。 Why Self-Attention比较self-attention和rnn、cnn。]]></content>
-      <categories>
-        <category>paper_reading</category>
-      </categories>
-      <tags>
-        <tag>机器翻译</tag>
-        <tag>transformer</tag>
-        <tag>self-attention</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[自然语言处理基础知识框架]]></title>
     <url>%2F2018%2F08%2F10%2Fnlp-guideline%2F</url>
     <content type="text"><![CDATA[秋招在即，虽然生活艰难，还是需要好好复习。总结一份自己的NLP知识框架。 传统机器学习 逻辑回归 基本概念 逻辑回归的梯度下降公式推导 L1和L2正则的区别 逻辑回归与极大似然估计 逻辑回归与最大熵模型 关系 如何推导 逻辑回归为什么要用sigmoid 逻辑回归与特征离散化、特征交叉 fm 和 ffm算法 决策树 ID3算法 特征选择标准：信息增益 特征选择标准的特点 具体算法 C4.5算法 信息增益比 信息增益比特点 具体算法 CART 二叉树 特征选择标准 决策树：基尼系数 回归树：最小二乘法 具体算法 剪枝 预剪枝 后剪枝 K-近邻 K值选择 距离度量 决策方法 实现方法 kd树 支持向量机 目标函数 对偶问题求解公式推导 核函数 lr和svm的异同 朴素贝叶斯 集成学习 聚类 统计自然语言处理算法 最大熵模型 模型形式 特征约束 最大熵 指数形式 原问题是有约束的最大化问题 通过拉格朗日方程转换为无约束优化问题 最大熵模型和逻辑回归关系 EM算法 基本概念 可以从抛硬币问题开始回忆 E步和M步 两个点 初值敏感 Q函数很重要 EM的收敛性证明 应用场景 聚类算法 HMM的参数训练 语言模型 基本概念 平滑方法 有时间关注基于Transformer的LM HMM 关于马尔科夫过程 一阶马尔科夫链 转移概率矩阵 齐次马氏链 遍历性 HMM的模型定义 三个问题 已知模型-&gt;输出状态概率 前向算法 后向算法 前向和后向算法结合 已知模型和输出状态-&gt;概率最大的隐藏状态 维特比算法 只知道输出状态-&gt;估计模型参数 参数估计问题 EM算法 E步 M步 应用 CRF 为什么要引入条件随机场(CRF和HMM的异同点) HMM是生成式，CRF是判别式 输出序列的相关性 额外的特征 标注偏置 条件随机场的定义 线性链条件随机场 参数化形式 简化形式 矩阵形式 预测算法 改写目标函数，将特征函数合并 维特比算法 学习算法(同最大熵的学习算法) 改进的迭代尺度法 拟牛顿法 word2vec, GloVec Skip-gram CBOW GloVec LDA,SVD 深度学习基础 正向传播 反向传播 常见激活函数 sigmoid tanh ReLU Leaky ReLU maxout 优化算法 SGD Momentum Adagrad RMSprop Adam 常见NLP模型算法与数据结构常见框架语言 c++ python 其他基础知识 数据库 设计模式 计算机网络 操作系统]]></content>
@@ -44,6 +31,19 @@
       </categories>
       <tags>
         <tag>短文本相似度，文本分类</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Attention Is All U Need]]></title>
+    <url>%2F2018%2F06%2F12%2Fattention-is-all-U-need%2F</url>
+    <content type="text"><![CDATA[IntroductionRNN, LSTM, GRU在语言模型和机器翻译等领域都达到了state-of-the-art的水平。RNN模型存在不能并行计算和长距离依赖的问题。现在，attention机制几乎成为了RNN模型的标配。 本文提出了Transformer的新结构，完全避开了循环的结构，仅仅依赖于attention机制来获取input和output之间的依赖。简而言之，Transformer是又快又好。 Background传统的减少串行计算的方法操作的数目和计算位置之间的距离有关，而Transformer是常数级别的计算量。 Self-attention 根据序列的不同位置计算对序列的表达，已经别广泛地运用到了很多NLP领域。 Model Architecture在传统的encoder-decoder中，encoder对input进行编码生成语义C，decoder将C解码为我们需要的目标Y。 Transformer的encoder和decoder都采用了stacked self-attention and point-wise, fully connected layers。 Encoder and Decoder Stacks Encoder encoder由6层(N=6)堆叠而成，每一层由两个sublayer构成。第一个sublayer是Multi-Head Attention，第二个sublayer是Feed Forward。两个sublayer都会引入residual和layer normalization。 简单来说，公式就是 LayerNorm(x + sublayer(x))。为了可以实现residual，我们设置所有的output的维度为512($d_{model} = 512$) Decoder decoder也是由6层(N=6)堆叠而成，每一层除了encoder部分的两个sublayer，还加入了一个Multi-Head Attention用来处理encoder部分的输出。第一个Multi-Head Attention进行了细微修改，加入了mask，用来保证每个位置预测结果时只会将该位置之前的结果纳入计算(已经预测过的位置)。 Attention Scaled Dot-Product Attention 如上面左图所示，直接上公式： Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt d_k})Vquery对每个key点乘，然后做一个缩放操作，然后做softmax乘以V。相当于计算每个K的相似度，根据相似度计算V的加权平均。 有两种用的比较多的attention计算方法，一种是additive attention(使用前向网络计算)，一种是dot-product。两种的理论实践复杂度很接近，但是dot-product时间和空间效率更高。 在$d_k$范围比较大的时候，additive attention的效果更好，因为dot-product在计算softmax时，如果值较大会导致softmax具有小的梯度，所以需要进行除以$\sqrt d_k$的缩放。 补充 softmax的梯度： \begin{align*} softmax(x_i) & = Z(x_i) = \frac{e^{x_i}}{\sum _je^{x_j}} \\ \frac{\partial Z(x_i)}{\partial x_i} &= \frac{e^{x_i} \sum _je^{x_j} - e^{x_i} e^{x_j} }{(\sum _je^{x_j})^2} = Z(x_i)(1 - Z(x_j) )\\ \frac{\partial Z(x_i)}{\partial x_j} &= \frac{- e^{x_i} e^{x_j} }{(\sum _je^{x_j})^2} = -Z(x_i) Z(x_j) \end{align*} Multi-Head Attention 作者发现并行使用不同的线性层处理K, Q, V, 并且再并行通过attention model效果会比较好。Multi-head attention allows the model to jointly attend to information from different representation subspaces at different positions 上公式： MultiHead(Q, K, V) = Concat(head1, head2, ..., headh)W_O \\ where\ headi = Attention(QW_i^Q, KW_i^K, VW_i^V)其中 W_O \in R^{hd_v\times d_v}, W_i^Q \in R^{d_m \times d_k},W_i^K \in R^{d_m \times d_k},W_i^V \in R^{d_m \times d_v},我们设置了h=8个并行的结构，同时使得 d_k = d_v = d_{model} / 8 = 64​。因为每个head的维度被降低了，所以总得计算量和之前是很相似的。 Applications of Attention in our Model Transformer有三种使用Multi-Head Attention的方式： queris来自于decoder的上一层decoder的输出，keys和value来自于encoder部分的输出 encoder部分是self-attention, 所有的query，key，value均来自于上一层的输出。每个位置都可以attend到所有的位置。 decoder部分和encoder部分一样，只不过为了保证自回归性，需要引入mask保证不计算非法的值。 Position-wise Feed-Forward Networks每个attention sublayer后面都会接一个全连接的前向网络，公式为： FFN(x) = max(0, xW_1+b_1)W_2 + b_2另一种解释是两层卷积核size为1的卷积。输入和输出均为d_{model}=512,d_{ff} = 2048。 Embeddings and Softmax输入和输出需要embedding layer，共享权重，同时将这些权重乘以 $\sqrt {d_{model}}$ Positional Encoding因为模型不适用循环神经网络或者卷积，所以需要某种机制来包含词之间的位置信息。 不太懂具体是怎么计算的，懂了再补充。 Why Self-Attention比较self-attention和rnn、cnn。]]></content>
+      <categories>
+        <category>paper_reading</category>
+      </categories>
+      <tags>
+        <tag>机器翻译</tag>
+        <tag>transformer</tag>
+        <tag>self-attention</tag>
       </tags>
   </entry>
   <entry>
