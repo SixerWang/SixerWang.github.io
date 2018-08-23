@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="算法,leetcode," />
+  <meta name="keywords" content="leetcode,算法," />
 
 
 
@@ -80,14 +80,14 @@
 
 
 <meta name="description" content="LinkedList链表翻转、两个链表代表的数求和（两种形式）、找到链表的倒数第k个节点（删除链表的倒数第k个节点） 445. Add Two Numbers IIYou are given two non-empty linked lists representing two non-negative integers. The most significant digit comes firs">
-<meta name="keywords" content="算法,leetcode">
+<meta name="keywords" content="leetcode,算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="leetcode">
 <meta property="og:url" content="http://yoursite.com/2018/05/08/leetcode/index.html">
 <meta property="og:site_name" content="Dannyw&#39;s Blog">
 <meta property="og:description" content="LinkedList链表翻转、两个链表代表的数求和（两种形式）、找到链表的倒数第k个节点（删除链表的倒数第k个节点） 445. Add Two Numbers IIYou are given two non-empty linked lists representing two non-negative integers. The most significant digit comes firs">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-02T08:08:04.000Z">
+<meta property="og:updated_time" content="2018-08-23T14:55:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="leetcode">
 <meta name="twitter:description" content="LinkedList链表翻转、两个链表代表的数求和（两种形式）、找到链表的倒数第k个节点（删除链表的倒数第k个节点） 445. Add Two Numbers IIYou are given two non-empty linked lists representing two non-negative integers. The most significant digit comes firs">
@@ -1417,7 +1417,7 @@
 <p>给定一个数组，找到最长的递增子序列。</p>
 <p><strong>思路</strong></p>
 <ol>
-<li>动态规划，$O(n^2)$时间复杂度，$O(n^2)$空间复杂度<ol>
+<li>动态规划，$O(n^2)$时间复杂度，$O(n)$空间复杂度<ol>
 <li><code>dp[i]</code>表示前 i 个数的最长递增子序列</li>
 <li>每次更新时，遍历0到 i-1的数，如果比nums[j]大，则可以构成新的递增子序列，序列长度为dp[j]+1，将最大值作为dp[i]</li>
 <li>遍历过程中记录最大值</li>
@@ -1458,7 +1458,7 @@
 <h2 id="337-House-Robber-III"><a href="#337-House-Robber-III" class="headerlink" title="337. House Robber III"></a><a href="https://leetcode.com/problems/house-robber-iii/description/" target="_blank" rel="noopener">337. House Robber III</a></h2><p><strong>题目大意</strong></p>
 <p>小区的布局变成了二叉树的形式，父亲和孩子不能同时被偷。问最多能偷多少。</p>
 <p><strong>思路</strong></p>
-<p>相同的思路，每个位置有被偷或者不被偷两种情况。<code>res[0] = left[1] + right[1] + root-&gt;val</code>和<code>res[1] = max(left[0], left[1]) + max(right[0], right[1])</code></p>
+<p>思路略微不同，每个位置有被偷或者不被偷两种情况，存储两种情况的最大收获值(上面两题都是存储存在i个位置，能够偷的最大收获是多少)。<code>res[0] = left[1] + right[1] + root-&gt;val</code>和<code>res[1] = max(left[0], left[1]) + max(right[0], right[1])</code></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">rob</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; res = dfs(root);</span><br><span class="line">        <span class="keyword">return</span> max(res.first, res.second);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; dfs(TreeNode* root)&#123;</span><br><span class="line">        <span class="keyword">if</span> (root==<span class="literal">NULL</span>) <span class="keyword">return</span> make_pair(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; res;</span><br><span class="line">        pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; left = dfs(root-&gt;left);</span><br><span class="line">        pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; right = dfs(root-&gt;right);</span><br><span class="line">        res.first = left.second + right.second + root-&gt;val;</span><br><span class="line">        res.second = max(left.first, left.second) + max(right.first, right.second);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h2 id="121-Best-Time-to-Buy-and-Sell-Stock"><a href="#121-Best-Time-to-Buy-and-Sell-Stock" class="headerlink" title="121. Best Time to Buy and Sell Stock"></a><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/#/description" target="_blank" rel="noopener">121. Best Time to Buy and Sell Stock</a></h2><p>Say you have an array for which the ith element is the price of a given stock on day i.</p>
 <p>If you were only permitted to complete at most one transaction (ie, buy one and sell one share of the stock), design an algorithm to find the maximum profit.</p>
@@ -1526,9 +1526,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/算法/" rel="tag"># 算法</a>
-          
             <a href="/tags/leetcode/" rel="tag"># leetcode</a>
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
           
         </div>
       
