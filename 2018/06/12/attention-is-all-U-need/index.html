@@ -89,8 +89,10 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://owxv9mpb2.bkt.clouddn.com/encoder-decoder.jpg">
 <meta property="og:image" content="http://owxv9mpb2.bkt.clouddn.com/attention.jpg">
+<meta property="og:image" content="http://owxv9mpb2.bkt.clouddn.com/qkv.jpg">
+<meta property="og:image" content="http://owxv9mpb2.bkt.clouddn.com/positionalencoding.jpg">
 <meta property="og:image" content="http://owxv9mpb2.bkt.clouddn.com/comparison.jpg">
-<meta property="og:updated_time" content="2018-08-12T12:42:01.000Z">
+<meta property="og:updated_time" content="2018-09-19T14:38:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Attention Is All U Need">
 <meta name="twitter:description" content="IntroductionRNN, LSTM, GRU在语言模型和机器翻译等领域都达到了state-of-the-art的水平。RNN模型存在不能并行计算和长距离依赖的问题。现在，attention机制几乎成为了RNN模型的标配。 本文提出了Transformer的新结构，完全避开了循环的结构，仅仅依赖于attention机制来获取input和output之间的依赖。简而言之，Transformer">
@@ -422,6 +424,19 @@
 <li>Encoder</li>
 </ul>
 <p>encoder由6层(N=6)堆叠而成，每一层由两个sublayer构成。第一个sublayer是Multi-Head Attention，第二个sublayer是Feed Forward。两个sublayer都会引入residual和layer normalization。</p>
+<blockquote>
+<p><strong>Batch Normalization 和Layer Normalization</strong></p>
+<p><a href="https://arxiv.org/pdf/1607.06450.pdf" target="_blank" rel="noopener">paper link</a></p>
+<p><strong>Batch Normalization</strong></p>
+<p>在一个mini-batch上计算均值和方差，在对每个数据进行norm。</p>
+<p>假设 某一层神经元的输入输出为 $\alpha_i^l = w_i^{l^T} h^l, h^{l+1} = f(\alpha_i^l + b_i^l)$， $\alpha_i^l$ 是线性层输出。$h^l$ 是l层的输入。</p>
+<p>Batch normalization 的计算顺序为 <code>线性层 -- BN -- 激活函数</code>。</p>
+<p>BN公式为：<script type="math/tex">\alpha_i^l = \frac{g_i^l}{\sigma_i^l}(\alpha_i^l - \mu_i^l)</script></p>
+<p><strong>Layer Normalization</strong></p>
+<p>RNN难以用BN计算，所以提出了LN。对于每个time stamp的输出结果，在该输出结果上做norm，而不是在所有的batch上做norm。</p>
+<p>不管是BN还是LN，norm的结果还需要过一个线性层，进行缩放和漂移，避免norm后的结果太过于一致，而失去了特征。</p>
+<p>$\alpha = \beta \alpha + \gamma$ $\beta$表示缩放因子，$\gamma$表示漂移因子。</p>
+</blockquote>
 <p>简单来说，公式就是 <code>LayerNorm(x + sublayer(x))</code>。为了可以实现residual，我们设置所有的output的维度为512($d_{model} = 512$)</p>
 <ul>
 <li>Decoder</li>
@@ -450,7 +465,12 @@ softmax(x_i) & = Z(x_i) = \frac{e^{x_i}}{\sum _je^{x_j}} \\
 MultiHead(Q, K, V) = Concat(head1, head2, ..., headh)W_O \\
 where\ headi = Attention(QW_i^Q, KW_i^K, VW_i^V)</script><p>其中</p>
 <script type="math/tex; mode=display">
-W_O \in R^{hd_v\times d_v}, W_i^Q \in R^{d_m \times d_k},W_i^K \in R^{d_m \times d_k},W_i^V \in R^{d_m \times d_v},</script><p>我们设置了h=8个并行的结构，同时使得 <script type="math/tex">d_k = d_v = d_{model} / 8 = 64​</script>。因为每个head的维度被降低了，所以总得计算量和之前是很相似的。</p>
+W_O \in R^{hd_v\times d_v}, W_i^Q \in R^{d_m \times d_k},W_i^K \in R^{d_m \times d_k},W_i^V \in R^{d_m \times d_v},</script><p>我们设置了h=8个并行的结构，同时使得 <script type="math/tex">d_k = d_v = d_{model} / 8 = 64</script>。因为每个head的维度被降低了，所以总得计算量和之前是很相似的。</p>
+<blockquote>
+<p>Encoder 中 Attention 的输入有K，Q，V。Input embedding加上Positional Encoding的输入会经过三个线性层，得到输入的K，Q，V。每个堆叠的sublayer的输出都会经过三个线性层得到新的K，Q，V，作为下一层的输入。</p>
+<p>如下图所示。</p>
+<p><img src="http://owxv9mpb2.bkt.clouddn.com/qkv.jpg" alt="qkv"></p>
+</blockquote>
 <ol>
 <li>Applications of Attention in our Model</li>
 </ol>
@@ -464,10 +484,18 @@ W_O \in R^{hd_v\times d_v}, W_i^Q \in R^{d_m \times d_k},W_i^K \in R^{d_m \times
 <script type="math/tex; mode=display">
 FFN(x) = max(0, xW_1+b_1)W_2 + b_2</script><p>另一种解释是两层卷积核size为1的卷积。输入和输出均为<script type="math/tex">d_{model}=512</script>,<script type="math/tex">d_{ff} = 2048</script>。</p>
 <h4 id="Embeddings-and-Softmax"><a href="#Embeddings-and-Softmax" class="headerlink" title="Embeddings and Softmax"></a>Embeddings and Softmax</h4><p>输入和输出需要embedding layer，共享权重，同时将这些权重乘以 $\sqrt {d_{model}}$</p>
-<h4 id="Positional-Encoding"><a href="#Positional-Encoding" class="headerlink" title="Positional Encoding"></a>Positional Encoding</h4><p>因为模型不适用循环神经网络或者卷积，所以需要某种机制来包含词之间的位置信息。</p>
-<p><del>不太懂具体是怎么计算的，懂了再补充。</del></p>
+<h4 id="Positional-Encoding"><a href="#Positional-Encoding" class="headerlink" title="Positional Encoding"></a>Positional Encoding</h4><p>因为模型不适用循环神经网络或者卷积，所以需要某种机制来包含词之间的位置信息。Positional encoding 计算公式如下：</p>
+<script type="math/tex; mode=display">
+PE(pos,2i) = sin(pos/10000^{2i/d_{model}}\ \ )\\
+PE(pos,2i+1) = cos(pos/10000^{2i/d_{model}}\ \ )</script><p>对每个位置，positional encoding的维度和embedding size相同，会和embedding向量相加，得到最后的input向量。</p>
+<p>如果当前位置是偶数位置，则使用sin函数计算每个维度的具体值，如果当前位置是奇数位置，则使用cos函数计算每个维度的具体值。</p>
+<p>图示如下</p>
+<p><img src="http://owxv9mpb2.bkt.clouddn.com/positionalencoding.jpg" alt="Positional Encoding"></p>
 <h3 id="Why-Self-Attention"><a href="#Why-Self-Attention" class="headerlink" title="Why Self-Attention"></a>Why Self-Attention</h3><p>比较self-attention和rnn、cnn。</p>
 <p><img src="http://owxv9mpb2.bkt.clouddn.com/comparison.jpg" alt="comparison"></p>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="https://arxiv.org/pdf/1607.06450.pdf" target="_blank" rel="noopener">Layer Normalization paper</a></p>
+<p><a href="https://arxiv.org/pdf/1706.03762.pdf" target="_blank" rel="noopener">attention is all you need paper</a></p>
+<p><a href="https://jalammar.github.io/illustrated-transformer/" target="_blank" rel="noopener">参考博客</a></p>
 
       
     </div>
@@ -650,7 +678,7 @@ FFN(x) = max(0, xW_1+b_1)W_2 + b_2</script><p>另一种解释是两层卷积核s
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Background"><span class="nav-number">2.</span> <span class="nav-text">Background</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Model-Architecture"><span class="nav-number">3.</span> <span class="nav-text">Model Architecture</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Encoder-and-Decoder-Stacks"><span class="nav-number">3.1.</span> <span class="nav-text">Encoder and Decoder Stacks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Attention"><span class="nav-number">3.2.</span> <span class="nav-text">Attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Position-wise-Feed-Forward-Networks"><span class="nav-number">3.3.</span> <span class="nav-text">Position-wise Feed-Forward Networks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Embeddings-and-Softmax"><span class="nav-number">3.4.</span> <span class="nav-text">Embeddings and Softmax</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Positional-Encoding"><span class="nav-number">3.5.</span> <span class="nav-text">Positional Encoding</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-Self-Attention"><span class="nav-number">4.</span> <span class="nav-text">Why Self-Attention</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Background"><span class="nav-number">2.</span> <span class="nav-text">Background</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Model-Architecture"><span class="nav-number">3.</span> <span class="nav-text">Model Architecture</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Encoder-and-Decoder-Stacks"><span class="nav-number">3.1.</span> <span class="nav-text">Encoder and Decoder Stacks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Attention"><span class="nav-number">3.2.</span> <span class="nav-text">Attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Position-wise-Feed-Forward-Networks"><span class="nav-number">3.3.</span> <span class="nav-text">Position-wise Feed-Forward Networks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Embeddings-and-Softmax"><span class="nav-number">3.4.</span> <span class="nav-text">Embeddings and Softmax</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Positional-Encoding"><span class="nav-number">3.5.</span> <span class="nav-text">Positional Encoding</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-Self-Attention"><span class="nav-number">4.</span> <span class="nav-text">Why Self-Attention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reference"><span class="nav-number">5.</span> <span class="nav-text">Reference</span></a></li></ol></div>
             
 
           </div>
