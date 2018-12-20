@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="Dannyw&#39;s Blog">
 <meta property="og:description" content="A Joint Model of Intent Determination and Slot Filling for Spoken Language Understanding Abstract在SLU(spoken language understanding)中的两个主要任务是intent determination(ID)和slot filling(SF)。循环神经网络已经证明了能高效地解决">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://owxv9mpb2.bkt.clouddn.com/example.jpg">
-<meta property="og:image" content="http://owxv9mpb2.bkt.clouddn.com/%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84.jpg">
-<meta property="og:updated_time" content="2018-10-17T16:05:51.000Z">
+<meta property="og:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/spoken-language-understanding/example.jpg">
+<meta property="og:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/spoken-language-understanding/%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84.jpg">
+<meta property="og:updated_time" content="2018-12-20T03:38:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="A Joint Model of Intent Determination and Slot Filling for Spoken Language Understanding">
 <meta name="twitter:description" content="A Joint Model of Intent Determination and Slot Filling for Spoken Language Understanding Abstract在SLU(spoken language understanding)中的两个主要任务是intent determination(ID)和slot filling(SF)。循环神经网络已经证明了能高效地解决">
-<meta name="twitter:image" content="http://owxv9mpb2.bkt.clouddn.com/example.jpg">
+<meta name="twitter:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/spoken-language-understanding/example.jpg">
 
 
 
@@ -414,7 +414,7 @@
 <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>在SLU(spoken language understanding)中的两个主要任务是intent determination(ID)和slot filling(SF)。循环神经网络已经证明了能高效地解决SF类的问题，但是目前还没有将RNN运用到ID中的例子。本文提出了一个同时解决两个问题的joint model。本文模型使用GRU作为特征提取的循环神经网络单元，使用max-pooling层提取句子的全局特征，用来做ID。使用两个任务的联合loss来训练模型。本文在两个数据集上进行了实验，在两个数据集上，两个任务都达到了state-of-art的效果。</p>
 <h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>对话系统中的SLU主要目的是拿到一句话的intent以及slot需要的值。最近几年，在自动客服系统，自动问答系统，语音助手等领域，SLU都是很火的研究热点。一般会先将语音转换为文本信息或者直接拿到用户的文本信息，再确定用户的意图以及一些参数(slot)值，下一句就是根据intent和slots值来帮助用户实现他们的要求。</p>
 <p>举个例子，比如”Show ﬂights from Boston to New York today”，一条来自airline travel information system (ATIS) corpus的数据(SLU中特别最广泛使用的数据集)。这句话的Domain是airline travel，intent是find a flight。”Boston”被标记为离开的城市，”New York”被标记为目的地。如下表所示。</p>
-<p><img src="http://owxv9mpb2.bkt.clouddn.com/example.jpg" alt="example"></p>
+<p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/spoken-language-understanding/example.jpg" alt="example"></p>
 <p>domain和intent的识别可以认为是semantic utterance classification问题，而slot filling是槽填充问题。本文将主要聚焦在意图识别上。</p>
 <p>目前，已经用RNN达到了SF任务的state-of-art，然而却没有将RNN运用到ID任务中。使用联合模型有两个主要的原因：</p>
 <ol>
@@ -425,7 +425,7 @@
 <p>上面的joint方法是并列的形式，另一种结合的方式是用用pipeline的串行结构，首先做意图分类，然后使用意图分类信息进行槽填充。这种方法并没有上一种方法好，因为这种信息流动是单向的，并且会受error propagation problem影响。</p>
 <h3 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h3><p>介绍了一些SF和ID的传统机器学习和深度学习方法。</p>
 <h3 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h3><p>模型的主要结构如下图所示</p>
-<p><img src="http://owxv9mpb2.bkt.clouddn.com/%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84.jpg" alt="模型结构"></p>
+<p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/spoken-language-understanding/%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84.jpg" alt="模型结构"></p>
 <p>模型输入是文本S，是一系列的词 $w_1, w_2,…,w_T$，T是文本的长度。有两个输出，$l^s$ 和 $l^u，分别代表槽序列标注以及意图的标签。</p>
 <h4 id="1-Embedding"><a href="#1-Embedding" class="headerlink" title="1. Embedding"></a>1. Embedding</h4><p>和一般NLP任务的Embedding略微不同，每个time step的输入是一个context窗口，每个词的Embedding会考虑上下d个单词，会concat上下文一共2d+1个单词作为当前time step的输入。公式如下：</p>
 <script type="math/tex; mode=display">

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="transformer,self-attention,机器阅读理解,QANet," />
+  <meta name="keywords" content="机器阅读理解,transformer,self-attention,QANet," />
 
 
 
@@ -80,20 +80,20 @@
 
 
 <meta name="description" content="Abstract现在的机器阅读理解的模型都是基于循环神经网络加上Attention机制。尽管这种模型获得了很大的成功，但是因为使用了循环的结构导致训练和预测速度较慢。本文提出了不适用循环神经网络的新结构：encoder部分使用卷积和self-attention，卷积用来提取局部信息，self-attention提取全局的信息。在SQuAD数据集上，模型在训练上会快3到13倍，在推断上达到了4倍到1">
-<meta name="keywords" content="transformer,self-attention,机器阅读理解,QANet">
+<meta name="keywords" content="机器阅读理解,transformer,self-attention,QANet">
 <meta property="og:type" content="article">
 <meta property="og:title" content="QANET Combining Local Convolution With Global Self-Attention For Reading Comprehension">
 <meta property="og:url" content="http://yoursite.com/2018/09/20/QANet/index.html">
 <meta property="og:site_name" content="Dannyw&#39;s Blog">
 <meta property="og:description" content="Abstract现在的机器阅读理解的模型都是基于循环神经网络加上Attention机制。尽管这种模型获得了很大的成功，但是因为使用了循环的结构导致训练和预测速度较慢。本文提出了不适用循环神经网络的新结构：encoder部分使用卷积和self-attention，卷积用来提取局部信息，self-attention提取全局的信息。在SQuAD数据集上，模型在训练上会快3到13倍，在推断上达到了4倍到1">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://owxv9mpb2.bkt.clouddn.com/model.png">
-<meta property="og:image" content="http://owxv9mpb2.bkt.clouddn.com/trans.png">
-<meta property="og:updated_time" content="2018-11-26T03:40:49.000Z">
+<meta property="og:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/mrc/qanet/model.png">
+<meta property="og:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/mrc/qanet/trans.png">
+<meta property="og:updated_time" content="2018-12-20T03:36:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="QANET Combining Local Convolution With Global Self-Attention For Reading Comprehension">
 <meta name="twitter:description" content="Abstract现在的机器阅读理解的模型都是基于循环神经网络加上Attention机制。尽管这种模型获得了很大的成功，但是因为使用了循环的结构导致训练和预测速度较慢。本文提出了不适用循环神经网络的新结构：encoder部分使用卷积和self-attention，卷积用来提取局部信息，self-attention提取全局的信息。在SQuAD数据集上，模型在训练上会快3到13倍，在推断上达到了4倍到1">
-<meta name="twitter:image" content="http://owxv9mpb2.bkt.clouddn.com/model.png">
+<meta name="twitter:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/mrc/qanet/model.png">
 
 
 
@@ -430,7 +430,7 @@
 </blockquote>
 <p>本文的创新之处在于，在embedding层和modeling encoders层，均只使用了卷积和self-attention，而之前的机器阅读模型大部分都是用的是循环神经网络的结构。正因此这个创新，我们可以并行处理数据。虽然self-attention早已经有人提出，但是本文是首先将卷积和self-attention结合起来使用的，并且取得了很好的效果。</p>
 <p>模型的总体结构图如下所示：</p>
-<p><img src="http://owxv9mpb2.bkt.clouddn.com/model.png" alt="sss"></p>
+<p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/mrc/qanet/model.png" alt="sss"></p>
 <p>左边是模型的整体结构图，右边是使用最多的Encoder Block的结构。模型中所有的encoder的结构都是相同的，只是卷积层的层数不同。encoder中的每一层都会使用残差连接和Layer Normalization(和Transformer中很类似)，context和question部分的encoder共享权值，三个输出部分的encoder共享权值(需要参考实现，是否五个encoder都是共享权值的)。input输入进每个encoder的之前，都会加入postional encoding的信息。</p>
 <p>下面对模型的五个部分分开介绍：</p>
 <h5 id="1-Input-Embedding-Layer"><a href="#1-Input-Embedding-Layer" class="headerlink" title="1. Input Embedding Layer"></a>1. Input Embedding Layer</h5><blockquote>
@@ -468,7 +468,7 @@ input = [c, a, c\bigodot a, c\bigodot b]</script></blockquote>
 p^1 = softmax(W_1[M_0; M_1])\\
 p^2 = softmax(W_2[M_0; M_1])</script></blockquote>
 <h4 id="3-Data-Augmentation-by-BackTranslation"><a href="#3-Data-Augmentation-by-BackTranslation" class="headerlink" title="3. Data Augmentation by BackTranslation"></a><strong>3. Data Augmentation by BackTranslation</strong></h4><p>因为模型训练速度经过改进以后得到了大幅度的提高，所以可以使用更多的数据进行训练。数据增强主要的手段是机器翻译，可以将原始数据翻译为法语(或者其他语言)，再将法语翻译回英文即可。示意图如下所示</p>
-<p><img src="http://owxv9mpb2.bkt.clouddn.com/trans.png" alt="trans"></p>
+<p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/mrc/qanet/trans.png" alt="trans"></p>
 <p>在翻译过程中，保留了beam search的所有结果，英文到法语过程中得到了k条翻译结果，k条法语到英文的过程中得到了$k^2$个翻译结果，k是beam search的宽度。</p>
 <p><strong>针对SQuAD数据集</strong></p>
 <p>SQuAD数据集每一条数据时三元组 (d, q, a)，d是文档，q是问题，a是答案。为了保证不改变问题的意思，我们不对q进行改动，只会对d进行数据增强。由翻译得到的$d^-$ 的答案a必然也有所更改，文中提出了使用2元语言模型来找到译文中的答案。计算译文中的候选答案的2元语言模型，挑选分数接近原始答案的span作为译文的answer。</p>
@@ -495,11 +495,11 @@ p^2 = softmax(W_2[M_0; M_1])</script></blockquote>
       
         <div class="post-tags">
           
+            <a href="/tags/机器阅读理解/" rel="tag"># 机器阅读理解</a>
+          
             <a href="/tags/transformer/" rel="tag"># transformer</a>
           
             <a href="/tags/self-attention/" rel="tag"># self-attention</a>
-          
-            <a href="/tags/机器阅读理解/" rel="tag"># 机器阅读理解</a>
           
             <a href="/tags/QANet/" rel="tag"># QANet</a>
           
