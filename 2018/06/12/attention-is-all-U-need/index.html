@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="机器翻译,transformer,self-attention," />
+  <meta name="keywords" content="transformer,self-attention,机器翻译," />
 
 
 
@@ -80,7 +80,7 @@
 
 
 <meta name="description" content="IntroductionRNN, LSTM, GRU在语言模型和机器翻译等领域都达到了state-of-the-art的水平。RNN模型存在不能并行计算和长距离依赖的问题。现在，attention机制几乎成为了RNN模型的标配。 本文提出了Transformer的新结构，完全避开了循环的结构，仅仅依赖于attention机制来获取input和output之间的依赖。简而言之，Transformer">
-<meta name="keywords" content="机器翻译,transformer,self-attention">
+<meta name="keywords" content="transformer,self-attention,机器翻译">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Attention Is All U Need">
 <meta property="og:url" content="http://yoursite.com/2018/06/12/attention-is-all-U-need/index.html">
@@ -88,11 +88,11 @@
 <meta property="og:description" content="IntroductionRNN, LSTM, GRU在语言模型和机器翻译等领域都达到了state-of-the-art的水平。RNN模型存在不能并行计算和长距离依赖的问题。现在，attention机制几乎成为了RNN模型的标配。 本文提出了Transformer的新结构，完全避开了循环的结构，仅仅依赖于attention机制来获取input和output之间的依赖。简而言之，Transformer">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/attention-is-all-u-need/encoder-decoder.jpg">
-<meta property="og:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/attention-is-all-u-need/attention.jpg">
+<meta property="og:image" content="https://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/attention-is-all-u-need/attention.jpg">
 <meta property="og:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/attention-is-all-u-need/qkv.jpg">
 <meta property="og:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/attention-is-all-u-need/positionalencoding.jpg">
 <meta property="og:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/attention-is-all-u-need/comparison.jpg">
-<meta property="og:updated_time" content="2018-12-20T03:36:04.000Z">
+<meta property="og:updated_time" content="2018-12-21T10:44:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Attention Is All U Need">
 <meta name="twitter:description" content="IntroductionRNN, LSTM, GRU在语言模型和机器翻译等领域都达到了state-of-the-art的水平。RNN模型存在不能并行计算和长距离依赖的问题。现在，attention机制几乎成为了RNN模型的标配。 本文提出了Transformer的新结构，完全避开了循环的结构，仅仅依赖于attention机制来获取input和output之间的依赖。简而言之，Transformer">
@@ -419,7 +419,7 @@
 <p>Self-attention 根据序列的不同位置计算对序列的表达，已经别广泛地运用到了很多NLP领域。</p>
 <h3 id="Model-Architecture"><a href="#Model-Architecture" class="headerlink" title="Model Architecture"></a>Model Architecture</h3><p>在传统的encoder-decoder中，encoder对input进行编码生成语义C，decoder将C解码为我们需要的目标Y。</p>
 <p>Transformer的encoder和decoder都采用了<code>stacked self-attention and point-wise, fully connected layers</code>。</p>
-<p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/attention-is-all-u-need/encoder-decoder.jpg" alt="encoder-decoder"></p>
+<p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/attention-is-all-u-need/encoder-decoder.jpg" height="70%" width="70%"></p>
 <h4 id="Encoder-and-Decoder-Stacks"><a href="#Encoder-and-Decoder-Stacks" class="headerlink" title="Encoder and Decoder Stacks"></a>Encoder and Decoder Stacks</h4><ul>
 <li>Encoder</li>
 </ul>
@@ -442,7 +442,7 @@
 <li>Decoder</li>
 </ul>
 <p>decoder也是由6层(N=6)堆叠而成，每一层除了encoder部分的两个sublayer，还加入了一个Multi-Head Attention用来处理encoder部分的输出。第一个Multi-Head Attention进行了细微修改，加入了mask，用来保证每个位置预测结果时只会将该位置之前的结果纳入计算(已经预测过的位置)。</p>
-<h4 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h4><p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/attention-is-all-u-need/attention.jpg" alt="attention"></p>
+<h4 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h4><p><img src="https://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/attention-is-all-u-need/attention.jpg" height="70%" width="70%"></p>
 <ol>
 <li>Scaled Dot-Product Attention</li>
 </ol>
@@ -469,7 +469,7 @@ W_O \in R^{hd_v\times d_v}, W_i^Q \in R^{d_m \times d_k},W_i^K \in R^{d_m \times
 <blockquote>
 <p>Encoder 中 Attention 的输入有K，Q，V。Input embedding加上Positional Encoding的输入会经过三个线性层，得到输入的K，Q，V。每个堆叠的sublayer的输出都会经过三个线性层得到新的K，Q，V，作为下一层的输入。</p>
 <p>如下图所示。</p>
-<p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/attention-is-all-u-need/qkv.jpg" alt="qkv"></p>
+<p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/attention-is-all-u-need/qkv.jpg" height="80%" width="80%"></p>
 </blockquote>
 <ol>
 <li>Applications of Attention in our Model</li>
@@ -513,11 +513,11 @@ PE(pos,2i+1) = cos(pos/10000^{2i/d_{model}}\ \ )</script><p>对每个位置，po
       
         <div class="post-tags">
           
-            <a href="/tags/机器翻译/" rel="tag"># 机器翻译</a>
-          
             <a href="/tags/transformer/" rel="tag"># transformer</a>
           
             <a href="/tags/self-attention/" rel="tag"># self-attention</a>
+          
+            <a href="/tags/机器翻译/" rel="tag"># 机器翻译</a>
           
         </div>
       

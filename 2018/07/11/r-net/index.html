@@ -88,7 +88,7 @@
 <meta property="og:description" content="R-NET: MACHINE READING COMPREHENSION WITH SELF-MATCHING NETWORKS Introduction两个数据集  SQuAD SQuAD全称是Stanford Question Answering Dataset，是斯坦福大学提出的基于维基百科的阅读理解数据集，非常权威。  MS-MS-MARCO MS-MS-MARCO的全称是Microsof">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/mrc/rnet/r-net.jpg">
-<meta property="og:updated_time" content="2018-12-20T03:37:46.000Z">
+<meta property="og:updated_time" content="2018-12-20T14:48:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="R-NET Machine Reading Comprehension With Self-Matching Networks">
 <meta name="twitter:description" content="R-NET: MACHINE READING COMPREHENSION WITH SELF-MATCHING NETWORKS Introduction两个数据集  SQuAD SQuAD全称是Stanford Question Answering Dataset，是斯坦福大学提出的基于维基百科的阅读理解数据集，非常权威。  MS-MS-MARCO MS-MS-MARCO的全称是Microsof">
@@ -427,7 +427,7 @@
 <li>Self-match layer，提高paragraph内部每个部分对全局信息的理解</li>
 <li>pointer-network，用于预测答案的位置</li>
 </ol>
-<h3 id="Detail"><a href="#Detail" class="headerlink" title="Detail"></a>Detail</h3><h4 id="结构图"><a href="#结构图" class="headerlink" title="结构图"></a>结构图</h4><p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/mrc/rnet/r-net.jpg" alt="r-net"></p>
+<h3 id="Detail"><a href="#Detail" class="headerlink" title="Detail"></a>Detail</h3><h4 id="结构图"><a href="#结构图" class="headerlink" title="结构图"></a>结构图</h4><p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/mrc/rnet/r-net.jpg" height="90%" width="90%"></p>
 <h4 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h4><h5 id="1-QUESTION-AND-PASSAGE-ENCODER"><a href="#1-QUESTION-AND-PASSAGE-ENCODER" class="headerlink" title="1.QUESTION AND PASSAGE ENCODER"></a>1.QUESTION AND PASSAGE ENCODER</h5><p>令Question的embedding结果为<script type="math/tex">Q=\{e_t^Q\}_{t=1}^m</script>，Passage的embedding结果为<script type="math/tex">P = \{e_t^P\}_{t=1}^n</script>。考虑到未登录词(OOV)的问题，令Q和P的character-level的embedding结果分别为<script type="math/tex">Q_c = \{c_t^Q\}_{t=1}^m</script> 和 <script type="math/tex">P_c = \{c_t^P\}_{t=1}^n</script>。<strong>正常情况，Q和P的字符个数会远远大于词的个数，最后character-level的embeddings却和词的embedding长度保持一致，文中交代是将字符embedding的结果通过双向RNN，取最后的隐藏层输出作为character-level的embedding结果的。</strong></p>
 <p>最终encode的结果是：</p>
 <script type="math/tex; mode=display">

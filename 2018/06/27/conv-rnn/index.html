@@ -91,7 +91,7 @@
 <meta property="og:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/text-sim/hybrid-frame/sc.jpg">
 <meta property="og:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/text-sim/hybrid-frame/as.jpg">
 <meta property="og:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/text-sim/hybrid-frame/formula.jpg">
-<meta property="og:updated_time" content="2018-12-20T03:40:38.000Z">
+<meta property="og:updated_time" content="2018-12-20T14:52:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="A Hybrid Framework for Text Modeling with Convolutional RNN">
 <meta name="twitter:description" content="A Hybrid Framework for Text Modeling with Convolutional RNN 总体本文主要提出了一种结合RNN和CNN的混合结构的模型，能够集合RNN和CNN各自的长处。在该混合结构基础上，文章又提出了sentence classification model(就是文本分类)和基于attention的answer selection model(基于文档的">
@@ -420,7 +420,7 @@
 <li>在此基础上进行扩展，提出了answer selection和sentence classification两个问题上更好的模型</li>
 <li>在比较有名的数据集上进行了测试，取得了较好的效果。</li>
 </ol>
-<h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><h4 id="conv-rnn的基础结构"><a href="#conv-rnn的基础结构" class="headerlink" title="conv-rnn的基础结构"></a>conv-rnn的基础结构</h4><p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/text-sim/hybrid-frame/conv-rnn.jpg" alt="conv-rnn"></p>
+<h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><h4 id="conv-rnn的基础结构"><a href="#conv-rnn的基础结构" class="headerlink" title="conv-rnn的基础结构"></a>conv-rnn的基础结构</h4><p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/text-sim/hybrid-frame/conv-rnn.jpg" height="70%" width="70%"></p>
 <ul>
 <li>word embedding层<ul>
 <li>将词变为词向量</li>
@@ -440,9 +440,9 @@
 </li>
 </ul>
 <p>总结：其实就是很简单的rnn再过cnn的网络结构</p>
-<h4 id="Sentence-Classification-Model"><a href="#Sentence-Classification-Model" class="headerlink" title="Sentence Classification Model"></a>Sentence Classification Model</h4><p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/text-sim/hybrid-frame/sc.jpg" alt="sc"></p>
+<h4 id="Sentence-Classification-Model"><a href="#Sentence-Classification-Model" class="headerlink" title="Sentence Classification Model"></a>Sentence Classification Model</h4><p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/text-sim/hybrid-frame/sc.jpg" height="70%" width="70%"></p>
 <p>结构非常简单，在conv-rnn基础上，将双向RNN的前向和后向隐藏层输出和最终输出concat到一起，后面再接上一层softmax的分类层即可。难以想象是一篇去年的KDD的文章</p>
-<h4 id="Answer-Selection-Model"><a href="#Answer-Selection-Model" class="headerlink" title="Answer Selection Model"></a>Answer Selection Model</h4><p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/text-sim/hybrid-frame/as.jpg" alt="as"></p>
+<h4 id="Answer-Selection-Model"><a href="#Answer-Selection-Model" class="headerlink" title="Answer Selection Model"></a>Answer Selection Model</h4><p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/text-sim/hybrid-frame/as.jpg" height="70%" width="70%"></p>
 <p>几个创新点</p>
 <ol>
 <li>输入加入了overlap的feature，问题中每个词和答案中的每个词相似度是多少，构成一维特征</li>
@@ -452,7 +452,7 @@
 </li>
 <li>引入attention机制，将question双向RNN的hidden state计算attention向量$A_q$，让$A_q$参与到answer部分GPU的计算中。</li>
 </ol>
-<p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/text-sim/hybrid-frame/formula.jpg" alt="formula"></p>
+<p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/text-sim/hybrid-frame/formula.jpg" height="80%" width="80%"></p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>上面的网络其实组合起来也不算复杂，但是却取得了很好的效果。其中answer selection model中创新点较多，有很多值得参考的地方，比如overlap的feature，GESD等等。</p>
 
       

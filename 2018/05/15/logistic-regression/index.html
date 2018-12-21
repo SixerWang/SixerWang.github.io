@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="Dannyw&#39;s Blog">
 <meta property="og:description" content="从线性回归说起 线性回归  $y = w^Tx + b$  x表示n维的特征向量，通过线性相加得到y值，可以使用使用最小二乘求解。  逻辑回归与线性回归的联系与区别  对数几率角度理解 逻辑回归是，通过线性回归的方法去预测对数几率，即：$ln\frac{y}{1-y} = w^Tx+b$ 求解得到 $y = \frac{1}{e^{-(w^Tx+b)}+1}$   线性回归形式预测的是几率大小，逻">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://owxv9mpb2.bkt.clouddn.com/l1-l2.png">
-<meta property="og:updated_time" content="2018-05-31T07:27:36.000Z">
+<meta property="og:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/ml-note/l1-l2.png">
+<meta property="og:updated_time" content="2018-12-20T14:35:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈逻辑回归">
 <meta name="twitter:description" content="从线性回归说起 线性回归  $y = w^Tx + b$  x表示n维的特征向量，通过线性相加得到y值，可以使用使用最小二乘求解。  逻辑回归与线性回归的联系与区别  对数几率角度理解 逻辑回归是，通过线性回归的方法去预测对数几率，即：$ln\frac{y}{1-y} = w^Tx+b$ 求解得到 $y = \frac{1}{e^{-(w^Tx+b)}+1}$   线性回归形式预测的是几率大小，逻">
-<meta name="twitter:image" content="http://owxv9mpb2.bkt.clouddn.com/l1-l2.png">
+<meta name="twitter:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/ml-note/l1-l2.png">
 
 
 
@@ -480,7 +480,7 @@ w_j = w_j - \alpha \frac{\partial J}{\partial w_j}</script></li>
 <li><p>最终的loss为：$J = loss + ||w||_p$</p>
 </li>
 <li><p>图形解释</p>
-<p><img src="http://owxv9mpb2.bkt.clouddn.com/l1-l2.png" alt="l1-l2"></p>
+<p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/ml-note/l1-l2.png" height="75%" width="75%"></p>
 <ul>
 <li>一圈一圈的是loss的等高线(loss值)，方形和圆形分别是l1和l2的等高线，基于梯度下降思想，需要更加接近圆心，才会loss更小。</li>
 <li>对于l1来说，弧形会最先与轴上的点相交，对于l2来说，因为是圆弧，所以会先与圆相切</li>

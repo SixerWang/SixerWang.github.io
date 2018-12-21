@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="Dannyw&#39;s Blog">
 <meta property="og:description" content="1. 集成学习集成学习(ensenble learning)是指通过构建并结合多个学习器来完成学习任务。一般来说，多个“弱学习器”结合起来的效果往往好于单个强学习器的效果，所以集成学习的应用非常广泛，比如著名的集成树模型系列。 集成学习按照个体学习器是否相同，可以分为同质集成和异质集成。同质集成的个体学习器是相同，比如都是决策树，个体学习器也往往被称为基学习器。异质集成中的个体学习器由不同的学习算">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://owxv9mpb2.bkt.clouddn.com/bias_variances.jpg">
-<meta property="og:updated_time" content="2018-05-31T11:30:33.000Z">
+<meta property="og:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/ml-note/bias_variances.jpg">
+<meta property="og:updated_time" content="2018-12-20T14:32:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈集成学习">
 <meta name="twitter:description" content="1. 集成学习集成学习(ensenble learning)是指通过构建并结合多个学习器来完成学习任务。一般来说，多个“弱学习器”结合起来的效果往往好于单个强学习器的效果，所以集成学习的应用非常广泛，比如著名的集成树模型系列。 集成学习按照个体学习器是否相同，可以分为同质集成和异质集成。同质集成的个体学习器是相同，比如都是决策树，个体学习器也往往被称为基学习器。异质集成中的个体学习器由不同的学习算">
-<meta name="twitter:image" content="http://owxv9mpb2.bkt.clouddn.com/bias_variances.jpg">
+<meta name="twitter:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/ml-note/bias_variances.jpg">
 
 
 
@@ -413,7 +413,7 @@
 <p>集成学习按照个体学习器是否相同，可以分为同质集成和异质集成。同质集成的个体学习器是相同，比如都是决策树，个体学习器也往往被称为基学习器。异质集成中的个体学习器由不同的学习算法生成，比如不同的分类器(如决策树、lr和svm)投票出最终的结果。</p>
 <p>集成学习另一种比较普通的分类方法是根据个体学习器之间的组合方式，一种是串行的方式，称为boosting方法，如Adaboost；一种是并行的方法，称为bagging方法，如随机森林。</p>
 <h4 id="1-1-从偏差和方差说起"><a href="#1-1-从偏差和方差说起" class="headerlink" title="1.1 从偏差和方差说起"></a>1.1 从偏差和方差说起</h4><p>此处所提到的偏差和方差是有一定指代范围的，偏差指的是在训练集上的效果好坏，比如计算的正例的概率都集中在1附近，模型刻画能力较好，那么偏差就较小；方差指的是在不同测试集上的预测效果的浮动程度，比如在不同测试集上正例预测的概率范围都很接近，那么方差就较小。用打靶子来比喻的话，低偏差就是训练的时候每一枪都打到了靶中心周围，而低方差就是不管是训练还是比赛的时候，每次打的位置都比较接近。</p>
-<p><img src="http://owxv9mpb2.bkt.clouddn.com/bias_variances.jpg" alt=""></p>
+<p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/ml-note/bias_variances.jpg" height="75%" width="75%"></p>
 <p>偏差相当于刻画了模型在训练集上的效果，方差刻画了模型在不同测试集上的泛化能力，一个欠拟合的模型很明显是偏差大的，一个过拟合的模型很明显是方差大的。</p>
 <h4 id="1-2-boosting"><a href="#1-2-boosting" class="headerlink" title="1.2 boosting"></a>1.2 boosting</h4><p>boosting方法是集成学习中的第一大类别，这类算法的一般工作机制为：先在训练集上训练出一个个体学习器，然后根据个体学习器的在训练集上的效果，重新分配训练样本的权重，比如对错误分类样本增大权重，在此基础上训练新的个体学习器。直到个体学习器的个数达到了目标的个数，停止训练，将n个个体学习器线性加和作为最终的结果。boosting是一种串行的集成学习算法，主要的目的是降低偏差。</p>
 <h5 id="前向分步算法"><a href="#前向分步算法" class="headerlink" title="前向分步算法"></a><strong>前向分步算法</strong></h5><p>我们考虑一个加法模型，在我们训练了很多基学习器以后，使用线性相加的形式作为最后的模型。</p>
