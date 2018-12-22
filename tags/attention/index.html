@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="transformer,self-attention,机器翻译," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,24 +79,16 @@
 
 
 
-<meta name="description" content="IntroductionRNN, LSTM, GRU在语言模型和机器翻译等领域都达到了state-of-the-art的水平。RNN模型存在不能并行计算和长距离依赖的问题。现在，attention机制几乎成为了RNN模型的标配。 本文提出了Transformer的新结构，完全避开了循环的结构，仅仅依赖于attention机制来获取input和output之间的依赖。简而言之，Transformer">
-<meta name="keywords" content="transformer,self-attention,机器翻译">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Attention Is All U Need">
-<meta property="og:url" content="http://yoursite.com/2018/06/12/attention-is-all-U-need/index.html">
+<meta name="description" content="wangliubupt@163.com">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Dannyw&#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/tags/attention/index.html">
 <meta property="og:site_name" content="Dannyw&#39;s Blog">
-<meta property="og:description" content="IntroductionRNN, LSTM, GRU在语言模型和机器翻译等领域都达到了state-of-the-art的水平。RNN模型存在不能并行计算和长距离依赖的问题。现在，attention机制几乎成为了RNN模型的标配。 本文提出了Transformer的新结构，完全避开了循环的结构，仅仅依赖于attention机制来获取input和output之间的依赖。简而言之，Transformer">
+<meta property="og:description" content="wangliubupt@163.com">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/attention-is-all-u-need/encoder-decoder.jpg">
-<meta property="og:image" content="https://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/attention-is-all-u-need/attention.jpg">
-<meta property="og:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/attention-is-all-u-need/qkv.jpg">
-<meta property="og:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/attention-is-all-u-need/positionalencoding.jpg">
-<meta property="og:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/attention-is-all-u-need/comparison.jpg">
-<meta property="og:updated_time" content="2018-12-22T02:46:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Attention Is All U Need">
-<meta name="twitter:description" content="IntroductionRNN, LSTM, GRU在语言模型和机器翻译等领域都达到了state-of-the-art的水平。RNN模型存在不能并行计算和长距离依赖的问题。现在，attention机制几乎成为了RNN模型的标配。 本文提出了Transformer的新结构，完全避开了循环的结构，仅仅依赖于attention机制来获取input和output之间的依赖。简而言之，Transformer">
-<meta name="twitter:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/attention-is-all-u-need/encoder-decoder.jpg">
+<meta name="twitter:title" content="Dannyw&#39;s Blog">
+<meta name="twitter:description" content="wangliubupt@163.com">
 
 
 
@@ -126,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/06/12/attention-is-all-U-need/"/>
+  <link rel="canonical" href="http://yoursite.com/tags/attention/"/>
 
 
 
 
 
-  <title>Attention Is All U Need | Dannyw's Blog</title>
+  <title>Tag: attention | Dannyw's Blog</title>
   
 
 
@@ -161,7 +153,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -299,270 +291,54 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  
+  
+  
+  <div class="post-block tag">
 
-  
+    <div id="posts" class="posts-collapse">
+      <div class="collection-title">
+        <h1>attention<small>Tag</small>
+        </h1>
+      </div>
 
-  
-  
-  
+      
+        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/12/attention-is-all-U-need/">
+    <header class="post-header">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="dannyw">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://owxv9mpb2.bkt.clouddn.com/cyh.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dannyw's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
+      <h2 class="post-title">
         
+            <a class="post-title-link" href="/2018/12/21/slu-attention-rnn/" itemprop="url">
+              
+                <span itemprop="name">slu_attention_rnn</span>
+              
+            </a>
         
-          <h1 class="post-title" itemprop="name headline">Attention Is All U Need</h1>
-        
+      </h2>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-12T16:39:46+08:00">
-                2018-06-12
-              </time>
-            
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2018-12-21T20:12:11+08:00"
+              content="2018-12-21" >
+          12-21
+        </time>
+      </div>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/paper-reading/" itemprop="url" rel="index">
-                    <span itemprop="name">paper_reading</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/06/12/attention-is-all-U-need/" class="leancloud_visitors" data-flag-title="Attention Is All U Need">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>RNN, LSTM, GRU在语言模型和机器翻译等领域都达到了state-of-the-art的水平。RNN模型存在不能并行计算和长距离依赖的问题。现在，attention机制几乎成为了RNN模型的标配。</p>
-<p>本文提出了Transformer的新结构，完全避开了循环的结构，仅仅依赖于attention机制来获取input和output之间的依赖。简而言之，Transformer是又快又好。</p>
-<h3 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h3><p>传统的减少串行计算的方法操作的数目和计算位置之间的距离有关，而Transformer是常数级别的计算量。</p>
-<p>Self-attention 根据序列的不同位置计算对序列的表达，已经别广泛地运用到了很多NLP领域。</p>
-<h3 id="Model-Architecture"><a href="#Model-Architecture" class="headerlink" title="Model Architecture"></a>Model Architecture</h3><p>在传统的encoder-decoder中，encoder对input进行编码生成语义C，decoder将C解码为我们需要的目标Y。</p>
-<p>Transformer的encoder和decoder都采用了<code>stacked self-attention and point-wise, fully connected layers</code>。</p>
-<p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/attention-is-all-u-need/encoder-decoder.jpg" height="70%" width="70%"></p>
-<h4 id="Encoder-and-Decoder-Stacks"><a href="#Encoder-and-Decoder-Stacks" class="headerlink" title="Encoder and Decoder Stacks"></a>Encoder and Decoder Stacks</h4><ul>
-<li>Encoder</li>
-</ul>
-<p>encoder由6层(N=6)堆叠而成，每一层由两个sublayer构成。第一个sublayer是Multi-Head Attention，第二个sublayer是Feed Forward。两个sublayer都会引入residual和layer normalization。</p>
-<blockquote>
-<p><strong>Batch Normalization 和Layer Normalization</strong></p>
-<p><a href="https://arxiv.org/pdf/1607.06450.pdf" target="_blank" rel="noopener">paper link</a></p>
-<p><strong>Batch Normalization</strong></p>
-<p>在一个mini-batch上计算均值和方差，在对每个数据进行norm。</p>
-<p>假设 某一层神经元的输入输出为 $\alpha_i^l = w_i^{l^T} h^l, h^{l+1} = f(\alpha_i^l + b_i^l)$， $\alpha_i^l$ 是线性层输出。$h^l$ 是l层的输入。</p>
-<p>Batch normalization 的计算顺序为 <code>线性层 -- BN -- 激活函数</code>。</p>
-<p>BN公式为：<script type="math/tex">\alpha_i^l = \frac{g_i^l}{\sigma_i^l}(\alpha_i^l - \mu_i^l)</script></p>
-<p><strong>Layer Normalization</strong></p>
-<p>RNN难以用BN计算，所以提出了LN。对于每个time stamp的输出结果，在该输出结果上做norm，而不是在所有的batch上做norm。</p>
-<p>不管是BN还是LN，norm的结果还需要过一个线性层，进行缩放和漂移，避免norm后的结果太过于一致，而失去了特征。</p>
-<p>$\alpha = \beta \alpha + \gamma$ $\beta$表示缩放因子，$\gamma$表示漂移因子。</p>
-</blockquote>
-<p>简单来说，公式就是 <code>LayerNorm(x + sublayer(x))</code>。为了可以实现residual，我们设置所有的output的维度为512($d_{model} = 512$)</p>
-<ul>
-<li>Decoder</li>
-</ul>
-<p>decoder也是由6层(N=6)堆叠而成，每一层除了encoder部分的两个sublayer，还加入了一个Multi-Head Attention用来处理encoder部分的输出。第一个Multi-Head Attention进行了细微修改，加入了mask，用来保证每个位置预测结果时只会将该位置之前的结果纳入计算(已经预测过的位置)。</p>
-<h4 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h4><p><img src="https://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/attention-is-all-u-need/attention.jpg" height="70%" width="70%"></p>
-<ol>
-<li>Scaled Dot-Product Attention</li>
-</ol>
-<p>如上面左图所示，直接上公式：</p>
-<script type="math/tex; mode=display">
-Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt d_k})V</script><p>query对每个key点乘，然后做一个缩放操作，然后做softmax乘以V。相当于计算每个K的相似度，根据相似度计算V的加权平均。</p>
-<p>有两种用的比较多的attention计算方法，一种是additive attention(使用前向网络计算)，一种是dot-product。两种的理论实践复杂度很接近，但是dot-product时间和空间效率更高。</p>
-<p>在$d_k$范围比较大的时候，additive attention的效果更好，因为dot-product在计算softmax时，如果值较大会导致softmax具有小的梯度，所以需要进行除以$\sqrt d_k$的缩放。</p>
-<p>补充 softmax的梯度：</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-softmax(x_i) & = Z(x_i) = \frac{e^{x_i}}{\sum _je^{x_j}} \\
-\frac{\partial Z(x_i)}{\partial x_i} &= \frac{e^{x_i} \sum _je^{x_j} - e^{x_i} e^{x_j} }{(\sum _je^{x_j})^2} = Z(x_i)(1 - Z(x_j) )\\
-\frac{\partial Z(x_i)}{\partial x_j} &= \frac{- e^{x_i} e^{x_j} }{(\sum _je^{x_j})^2} = -Z(x_i) Z(x_j)
-\end{align*}</script><ol>
-<li>Multi-Head Attention</li>
-</ol>
-<p>作者发现并行使用不同的线性层处理K, Q, V, 并且再并行通过attention model效果会比较好。<code>Multi-head attention allows the model to jointly attend to information from different representation subspaces at different positions</code> 上公式：</p>
-<script type="math/tex; mode=display">
-MultiHead(Q, K, V) = Concat(head1, head2, ..., headh)W_O \\
-where\ headi = Attention(QW_i^Q, KW_i^K, VW_i^V)</script><p>其中</p>
-<script type="math/tex; mode=display">
-W_O \in R^{hd_v\times d_v}, W_i^Q \in R^{d_m \times d_k},W_i^K \in R^{d_m \times d_k},W_i^V \in R^{d_m \times d_v},</script><p>我们设置了h=8个并行的结构，同时使得 <script type="math/tex">d_k = d_v = d_{model} / 8 = 64</script>。因为每个head的维度被降低了，所以总得计算量和之前是很相似的。</p>
-<blockquote>
-<p>Encoder 中 Attention 的输入有K，Q，V。Input embedding加上Positional Encoding的输入会经过三个线性层，得到输入的K，Q，V。每个堆叠的sublayer的输出都会经过三个线性层得到新的K，Q，V，作为下一层的输入。</p>
-<p>如下图所示。</p>
-<p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/attention-is-all-u-need/qkv.jpg" height="80%" width="80%"></p>
-</blockquote>
-<ol>
-<li>Applications of Attention in our Model</li>
-</ol>
-<p>Transformer有三种使用Multi-Head Attention的方式：</p>
-<ul>
-<li>queris来自于decoder的上一层decoder的输出，keys和value来自于encoder部分的输出</li>
-<li>encoder部分是self-attention, 所有的query，key，value均来自于上一层的输出。每个位置都可以attend到所有的位置。</li>
-<li>decoder部分和encoder部分一样，只不过为了保证自回归性，需要引入mask保证不计算非法的值。</li>
-</ul>
-<h4 id="Position-wise-Feed-Forward-Networks"><a href="#Position-wise-Feed-Forward-Networks" class="headerlink" title="Position-wise Feed-Forward Networks"></a>Position-wise Feed-Forward Networks</h4><p>每个attention sublayer后面都会接一个全连接的前向网络，公式为：</p>
-<script type="math/tex; mode=display">
-FFN(x) = max(0, xW_1+b_1)W_2 + b_2</script><p>另一种解释是两层卷积核size为1的卷积。输入和输出均为<script type="math/tex">d_{model}=512</script>,<script type="math/tex">d_{ff} = 2048</script>。</p>
-<h4 id="Embeddings-and-Softmax"><a href="#Embeddings-and-Softmax" class="headerlink" title="Embeddings and Softmax"></a>Embeddings and Softmax</h4><p>输入和输出需要embedding layer，共享权重，同时将这些权重乘以 $\sqrt {d_{model}}$</p>
-<h4 id="Positional-Encoding"><a href="#Positional-Encoding" class="headerlink" title="Positional Encoding"></a>Positional Encoding</h4><p>因为模型不适用循环神经网络或者卷积，所以需要某种机制来包含词之间的位置信息。Positional encoding 计算公式如下：</p>
-<script type="math/tex; mode=display">
-PE(pos,2i) = sin(pos/10000^{2i/d_{model}}\ \ )\\
-PE(pos,2i+1) = cos(pos/10000^{2i/d_{model}}\ \ )</script><p>对每个位置，positional encoding的维度和embedding size相同，会和embedding向量相加，得到最后的input向量。</p>
-<p>如果当前位置是偶数位置，则使用sin函数计算每个维度的具体值，如果当前位置是奇数位置，则使用cos函数计算每个维度的具体值。</p>
-<p>图示如下</p>
-<p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/attention-is-all-u-need/positionalencoding.jpg" alt="Positional Encoding"></p>
-<h3 id="Why-Self-Attention"><a href="#Why-Self-Attention" class="headerlink" title="Why Self-Attention"></a>Why Self-Attention</h3><p>比较self-attention和rnn、cnn。</p>
-<p><img src="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/attention-is-all-u-need/comparison.jpg" alt="comparison"></p>
-<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="https://arxiv.org/pdf/1607.06450.pdf" target="_blank" rel="noopener">Layer Normalization paper</a></p>
-<p><a href="https://arxiv.org/pdf/1706.03762.pdf" target="_blank" rel="noopener">attention is all you need paper</a></p>
-<p><a href="https://jalammar.github.io/illustrated-transformer/" target="_blank" rel="noopener">参考博客</a></p>
-
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/transformer/" rel="tag"># transformer</a>
-          
-            <a href="/tags/self-attention/" rel="tag"># self-attention</a>
-          
-            <a href="/tags/机器翻译/" rel="tag"># 机器翻译</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/05/31/ensembel-learning/" rel="next" title="浅谈集成学习">
-                <i class="fa fa-chevron-left"></i> 浅谈集成学习
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/06/27/conv-rnn/" rel="prev" title="A Hybrid Framework for Text Modeling with Convolutional RNN">
-                A Hybrid Framework for Text Modeling with Convolutional RNN <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+    </header>
   </article>
 
 
-
-    <div class="post-spread">
       
     </div>
+
   </div>
+  
+  
+  
+
+  
 
 
           </div>
@@ -570,10 +346,6 @@ PE(pos,2i+1) = cos(pos/10000^{2i/d_{model}}\ \ )</script><p>对每个位置，po
 
 
           
-
-  
-
-
 
         </div>
         
@@ -594,17 +366,8 @@ PE(pos,2i+1) = cos(pos/10000^{2i/d_{model}}\ \ )</script><p>对每个位置，po
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -668,22 +431,6 @@ PE(pos,2i+1) = cos(pos/10000^{2i/d_{model}}\ \ )</script><p>对每个位置，po
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Background"><span class="nav-number">2.</span> <span class="nav-text">Background</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Model-Architecture"><span class="nav-number">3.</span> <span class="nav-text">Model Architecture</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Encoder-and-Decoder-Stacks"><span class="nav-number">3.1.</span> <span class="nav-text">Encoder and Decoder Stacks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Attention"><span class="nav-number">3.2.</span> <span class="nav-text">Attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Position-wise-Feed-Forward-Networks"><span class="nav-number">3.3.</span> <span class="nav-text">Position-wise Feed-Forward Networks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Embeddings-and-Softmax"><span class="nav-number">3.4.</span> <span class="nav-text">Embeddings and Softmax</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Positional-Encoding"><span class="nav-number">3.5.</span> <span class="nav-text">Positional Encoding</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-Self-Attention"><span class="nav-number">4.</span> <span class="nav-text">Why Self-Attention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reference"><span class="nav-number">5.</span> <span class="nav-text">Reference</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -904,10 +651,6 @@ $(function() {
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
 
   
 
