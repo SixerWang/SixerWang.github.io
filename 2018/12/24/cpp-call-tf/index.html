@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="TensorFlow,C++," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="之前都是使用python训练模型，使用python加载模型预测结果。正好遇到了一个需要使用C++加载模型预测结果的需求，趁这个机会学习一下相关的流程。 对于C++的TensorFlow Api，官方文档介绍只能通过bazel编译使用。所以先将介绍如何使用bazel来编译调用TensorFlow模型的C++代码。 准备工作bazel 安装bazel官方文档写的很清楚，可以根据自己的平台选择安装方法，">
+<meta name="keywords" content="TensorFlow,C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用C++调用TensorFlow模型简单说明">
+<meta property="og:url" content="http://yoursite.com/2018/12/24/cpp-call-tf/index.html">
+<meta property="og:site_name" content="Dannyw&#39;s Blog">
+<meta property="og:description" content="之前都是使用python训练模型，使用python加载模型预测结果。正好遇到了一个需要使用C++加载模型预测结果的需求，趁这个机会学习一下相关的流程。 对于C++的TensorFlow Api，官方文档介绍只能通过bazel编译使用。所以先将介绍如何使用bazel来编译调用TensorFlow模型的C++代码。 准备工作bazel 安装bazel官方文档写的很清楚，可以根据自己的平台选择安装方法，">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-24T14:51:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用C++调用TensorFlow模型简单说明">
+<meta name="twitter:description" content="之前都是使用python训练模型，使用python加载模型预测结果。正好遇到了一个需要使用C++加载模型预测结果的需求，趁这个机会学习一下相关的流程。 对于C++的TensorFlow Api，官方文档介绍只能通过bazel编译使用。所以先将介绍如何使用bazel来编译调用TensorFlow模型的C++代码。 准备工作bazel 安装bazel官方文档写的很清楚，可以根据自己的平台选择安装方法，">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/24/cpp-call-tf/"/>
+
+
+
+
+
+  <title>使用C++调用TensorFlow模型简单说明 | Dannyw's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7ac99c57df069649fcb7486c78be2b32";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dannyw's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-类别">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            类别
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/24/cpp-call-tf/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="dannyw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://owxv9mpb2.bkt.clouddn.com/cyh.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dannyw's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用C++调用TensorFlow模型简单说明</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-24T18:48:27+08:00">
+                2018-12-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/12/24/cpp-call-tf/" class="leancloud_visitors" data-flag-title="使用C++调用TensorFlow模型简单说明">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>之前都是使用python训练模型，使用python加载模型预测结果。正好遇到了一个需要使用C++加载模型预测结果的需求，趁这个机会学习一下相关的流程。</p>
+<p>对于C++的TensorFlow Api，官方文档介绍只能通过<code>bazel</code>编译使用。所以先将介绍如何使用<code>bazel</code>来编译调用TensorFlow模型的C++代码。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="bazel-安装"><a href="#bazel-安装" class="headerlink" title="bazel 安装"></a>bazel 安装</h3><p><a href="https://docs.bazel.build/versions/master/install.html" target="_blank" rel="noopener">bazel</a>官方文档写的很清楚，可以根据自己的平台选择安装方法，我是<code>Ubuntu</code>系统，直接输入下列命令即可：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +x bazel-&lt;version&gt;-installer-linux-x86_64.sh</span><br><span class="line">./bazel-&lt;version&gt;-installer-linux-x86_64.sh --user</span><br></pre></td></tr></table></figure>
+<p>可以设置一下环境变量（并不是必须的，因为我执行完上面两个命令就可以了）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH="$PATH:$HOME/bin"</span><br></pre></td></tr></table></figure>
+<h3 id="下载TensorFlow的源代码"><a href="#下载TensorFlow的源代码" class="headerlink" title="下载TensorFlow的源代码"></a>下载TensorFlow的源代码</h3><p>因为使用<code>bazel</code>编译的方式需要TensorFlow的源代码，所以第一步需要下载好源代码：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone --recursive https://github.com/tensorflow/tensorflow</span><br></pre></td></tr></table></figure>
+<h2 id="准备好模型部分"><a href="#准备好模型部分" class="headerlink" title="准备好模型部分"></a>准备好模型部分</h2><p>我们准备一个简单的实现 <code>x * w</code>的tf代码，不需要训练，只需要能输出结果，能够保存模型即可。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># train.py</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line"></span><br><span class="line">    config = tf.ConfigProto(log_device_placement=<span class="keyword">False</span>,allow_soft_placement=<span class="keyword">True</span>)</span><br><span class="line">    config.gpu_options.allow_growth = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">    train_dir = os.path.join(<span class="string">'demo_model/'</span>, <span class="string">"demo"</span>)</span><br><span class="line"></span><br><span class="line">    x = tf.placeholder(dtype=tf.int32, shape=[<span class="keyword">None</span>, <span class="number">2</span>], name=<span class="string">'x'</span>)</span><br><span class="line"></span><br><span class="line">    w = tf.Variable(tf.ones(shape=[<span class="number">2</span>, <span class="number">1</span>], dtype=tf.int32), dtype=tf.int32, name=<span class="string">'w'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># a * w</span></span><br><span class="line">    res = tf.matmul(x, w, name=<span class="string">'res'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> tf.Session(config=config) <span class="keyword">as</span> sess:</span><br><span class="line"></span><br><span class="line">        feed_dict = dict()</span><br><span class="line">        feed_dict[x] = [[<span class="number">1</span>, <span class="number">2</span>],[<span class="number">3</span>, <span class="number">4</span>]]</span><br><span class="line">        sess.run(tf.global_variables_initializer())</span><br><span class="line">        saver = tf.train.Saver()</span><br><span class="line">        <span class="comment"># get results and save model</span></span><br><span class="line">        res = sess.run(feed_dict=feed_dict, fetches=[res])</span><br><span class="line">        saver.save(sess, train_dir)</span><br><span class="line"></span><br><span class="line">        print(<span class="string">"result: "</span>, res[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+<p>运行上面的代码，可以得到 <code>[[3],[7]]</code>的输出结果，且在<code>demo_model/</code>下存好了对应的模型：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">demo_model</span><br><span class="line">├── checkpoint</span><br><span class="line">├── demo.data-00000-of-00001</span><br><span class="line">├── demo.index</span><br><span class="line">└── demo.meta</span><br></pre></td></tr></table></figure>
+<p>接下来，我们写一个简单的python代码调用模型，保证模型没有问题：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line"></span><br><span class="line">    config = tf.ConfigProto(log_device_placement=<span class="keyword">False</span>,allow_soft_placement = <span class="keyword">True</span>)</span><br><span class="line">    config.gpu_options.allow_growth = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> tf.Session(config=config) <span class="keyword">as</span> sess:</span><br><span class="line"></span><br><span class="line">        saver = tf.train.import_meta_graph(<span class="string">'demo_model/demo.meta'</span>)</span><br><span class="line">        saver.restore(sess, tf.train.latest_checkpoint(<span class="string">'demo_model/'</span>))</span><br><span class="line"></span><br><span class="line">        graph = tf.get_default_graph()</span><br><span class="line">        x = graph.get_tensor_by_name(<span class="string">"x:0"</span>)</span><br><span class="line"></span><br><span class="line">        feed_dict = dict()</span><br><span class="line">        feed_dict[x] = [[<span class="number">1</span>,<span class="number">2</span>],[<span class="number">3</span>,<span class="number">4</span>]]</span><br><span class="line"></span><br><span class="line">        op_to_restore = graph.get_tensor_by_name(<span class="string">"res:0"</span>)</span><br><span class="line">        print(sess.run(fetches=op_to_restore, feed_dict=feed_dict))</span><br></pre></td></tr></table></figure>
+<p>我们可以看到输出了与训练阶段相同的模型输出，证明model调起没什么问题。接下来就是比较困难的C++调用部分。</p>
+<h2 id="C-调用"><a href="#C-调用" class="headerlink" title="C++ 调用"></a>C++ 调用</h2><h3 id="C-代码"><a href="#C-代码" class="headerlink" title="C++ 代码"></a>C++ 代码</h3><p>首先定义好graph和checkpoint的路径</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="built_in">string</span> pathToGraph = <span class="string">"yourpath/demo_model/demo.meta"</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="built_in">string</span> checkpointPath = <span class="string">"youpath/demo_model/demo"</span>;</span><br></pre></td></tr></table></figure>
+<p>新建session，如果新建没有成功则退出。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> session = NewSession(SessionOptions());</span><br><span class="line"><span class="keyword">if</span> (session == <span class="literal">nullptr</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// throw runtime_error("Could not create Tensorflow session.");</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Could not create Tensorflow session."</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>加载存储的graph结构，如果加载不成功则退出。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MetaGraphDef graph_def;</span><br><span class="line">status = ReadBinaryProto(Env::Default(), pathToGraph, &amp;graph_def);</span><br><span class="line"><span class="keyword">if</span> (!status.ok())</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// throw runtime_error("Error reading graph definition from " + pathToGraph + ": " + status.ToString());</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Error reading graph"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>根据载入的图结构以及之前创建的session对象新建一个session：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">status = session-&gt;Create(graph_def.graph_def());</span><br><span class="line"><span class="keyword">if</span> (!status.ok())</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// throw runtime_error("Error creating graph: " + status.ToString());</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"error creating graph"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>载入存储的模型参数，通过session-&gt;Run的方式重新加载模型参数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Tensor checkpointPathTensor(DT_STRING, TensorShape());</span><br><span class="line">checkpointPathTensor.scalar&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt;()() = checkpointPath;</span><br><span class="line">status = session-&gt;Run(</span><br><span class="line">    &#123;&#123; graph_def.saver_def().filename_tensor_name(), checkpointPathTensor &#125;,&#125;,</span><br><span class="line">    &#123;&#125;,</span><br><span class="line">    &#123;graph_def.saver_def().restore_op_name()&#125;,</span><br><span class="line">    <span class="literal">nullptr</span>);</span><br><span class="line"><span class="keyword">if</span> (!status.ok())</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// throw runtime_error("Error loading checkpoint from " + checkpointPath + ": " + status.ToString());</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"error loading checkpoint"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>构造模型的输入数据，此处演示了一个batch_size为2的二维矩阵的输入。input相当于python版本中的feed_dict。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// input相当于python版本中的feed_dict。</span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::pair&lt;<span class="built_in">string</span>, Tensor&gt;&gt; input;</span><br><span class="line"><span class="comment">// 输入Tensor的shape</span></span><br><span class="line">tensorflow::<span class="function">TensorShape <span class="title">inputshape</span><span class="params">(&#123;<span class="number">2</span>, <span class="number">2</span>&#125;)</span></span>;</span><br><span class="line"><span class="comment">// 根据类型和shape新建Tensor</span></span><br><span class="line"><span class="function">Tensor <span class="title">a</span><span class="params">(tensorflow::DT_INT32,inputshape)</span></span>;</span><br><span class="line"><span class="comment">// 得到类型为int，维度为2的模板实例，类似于Eigen中矩阵的用法</span></span><br><span class="line"><span class="keyword">auto</span> a_map = a.tensor&lt;<span class="keyword">int</span>,<span class="number">2</span>&gt;();</span><br><span class="line"><span class="keyword">int</span> count = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">2</span>; ++i)&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;<span class="number">2</span>; ++j)&#123;</span><br><span class="line">        a_map(i,j) = count++;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// emplace_back用法类似于push_back,只是免去了构造结构体或类的麻烦</span></span><br><span class="line">input.emplace_back(<span class="built_in">std</span>::<span class="built_in">string</span>(<span class="string">"x"</span>), a);</span><br></pre></td></tr></table></figure>
+<p>调用模型，获取输出结果。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 结果是Tensor的向量</span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;tensorflow::Tensor&gt; answer;</span><br><span class="line">status = session-&gt;Run(input, &#123;<span class="string">"res"</span>&#125;, &#123;&#125;, &amp;answer);</span><br><span class="line"></span><br><span class="line">Tensor result = answer[<span class="number">0</span>];</span><br><span class="line"><span class="comment">// 获取类似矩阵的实例</span></span><br><span class="line"><span class="keyword">auto</span> result_map = result.tensor&lt;<span class="keyword">int</span>,<span class="number">2</span>&gt;();</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;<span class="string">"result: "</span>&lt;&lt;result_map(<span class="number">0</span>,<span class="number">0</span>)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;<span class="string">"result: "</span>&lt;&lt;result_map(<span class="number">1</span>,<span class="number">0</span>)&lt;&lt;<span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+<p>其实大部分代码都是参考网友实现的，官方的API真的很晦涩难以阅读。目前来看，想用c++构造输入输出都很不灵活。整个c++文件如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"tensorflow/core/public/session.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"tensorflow/core/protobuf/meta_graph.pb.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"tensorflow/cc/client/client_session.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"tensorflow/cc/ops/standard_ops.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"tensorflow/core/framework/tensor.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> tensorflow;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="built_in">string</span> pathToGraph = <span class="string">"yourpath/demo_model/demo.meta"</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="built_in">string</span> checkpointPath = <span class="string">"yourpath/demo_model/demo"</span>;</span><br><span class="line">    <span class="keyword">auto</span> session = NewSession(SessionOptions());</span><br><span class="line">    <span class="keyword">if</span> (session == <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">throw</span> runtime_error(<span class="string">"Could not create Tensorflow session."</span>);</span><br><span class="line">        <span class="comment">//cout &lt;&lt; "Could not create Tensorflow session." &lt;&lt; endl;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Status status;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 读入我们预先定义好的模型的计算图的拓扑结构</span></span><br><span class="line">    MetaGraphDef graph_def;</span><br><span class="line">    status = ReadBinaryProto(Env::Default(), pathToGraph, &amp;graph_def);</span><br><span class="line">    <span class="keyword">if</span> (!status.ok())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// throw runtime_error("Error reading graph definition from " + pathToGraph + ": " + status.ToString());</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Error reading graph"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 利用读入的模型的图的拓扑结构构建一个session</span></span><br><span class="line">    status = session-&gt;Create(graph_def.graph_def());</span><br><span class="line">    <span class="keyword">if</span> (!status.ok())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// throw runtime_error("Error creating graph: " + status.ToString());</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"error creating graph"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 读入预先训练好的模型的权重</span></span><br><span class="line">    Tensor checkpointPathTensor(DT_STRING, TensorShape());</span><br><span class="line">    checkpointPathTensor.scalar&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt;()() = checkpointPath;</span><br><span class="line">    status = session-&gt;Run(</span><br><span class="line">            &#123;&#123; graph_def.saver_def().filename_tensor_name(), checkpointPathTensor &#125;,&#125;,</span><br><span class="line">            &#123;&#125;,</span><br><span class="line">            &#123;graph_def.saver_def().restore_op_name()&#125;,</span><br><span class="line">            <span class="literal">nullptr</span>);</span><br><span class="line">    <span class="keyword">if</span> (!status.ok())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// throw runtime_error("Error loading checkpoint from " + checkpointPath + ": " + status.ToString());</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"error loading checkpoint"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// input相当于python版本中的feed_dict。</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::pair&lt;<span class="built_in">string</span>, Tensor&gt;&gt; input;</span><br><span class="line">    <span class="comment">// 输入Tensor的shape</span></span><br><span class="line">    tensorflow::<span class="function">TensorShape <span class="title">inputshape</span><span class="params">(&#123;<span class="number">2</span>, <span class="number">2</span>&#125;)</span></span>;</span><br><span class="line">    <span class="comment">// 根据类型和shape新建Tensor</span></span><br><span class="line">    <span class="function">Tensor <span class="title">a</span><span class="params">(tensorflow::DT_INT32,inputshape)</span></span>;</span><br><span class="line">    <span class="comment">// 得到类型为int，维度为2的模板实例，类似于Eigen中矩阵的用法</span></span><br><span class="line">    <span class="keyword">auto</span> a_map = a.tensor&lt;<span class="keyword">int</span>,<span class="number">2</span>&gt;();</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">2</span>; ++i)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;<span class="number">2</span>; ++j)&#123;</span><br><span class="line">            a_map(i,j) = count++;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// emplace_back用法类似于push_back,只是免去了构造结构体或类的麻烦</span></span><br><span class="line">    input.emplace_back(<span class="built_in">std</span>::<span class="built_in">string</span>(<span class="string">"x"</span>), a);</span><br><span class="line"></span><br><span class="line"><span class="comment">//   运行模型，并获取输出</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;tensorflow::Tensor&gt; answer;</span><br><span class="line">    status = session-&gt;Run(input, &#123;<span class="string">"res"</span>&#125;, &#123;&#125;, &amp;answer);</span><br><span class="line"></span><br><span class="line">    Tensor result = answer[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">auto</span> result_map = result.tensor&lt;<span class="keyword">int</span>,<span class="number">2</span>&gt;();</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"result: "</span>&lt;&lt;result_map(<span class="number">0</span>,<span class="number">0</span>)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"result: "</span>&lt;&lt;result_map(<span class="number">1</span>,<span class="number">0</span>)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><p>可以在<code>tensorflow/tensorflow</code>文件夹下新建demo文件夹，将上面的C++代码放入该文件夹。同时新建一个BUILD文件，里面内容如下，这个<code>bazel</code>的类似于makefile的编译文件，主要定义目标的名字，源文件是什么，以及依赖。具体可以参考教材<a href="https://docs.bazel.build/versions/master/tutorial/cpp.html" target="_blank" rel="noopener">Introduction to Bazel: Building a C++ Project</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">load(<span class="string">"//tensorflow:tensorflow.bzl"</span>, <span class="string">"tf_cc_binary"</span>)</span><br><span class="line">tf_cc_binary(</span><br><span class="line">     name = <span class="string">"demo"</span>, #目标文件名</span><br><span class="line">     srcs = [<span class="string">"call.cc"</span>], #源代码文件名</span><br><span class="line">     deps = [</span><br><span class="line">         <span class="string">"//tensorflow/cc:cc_ops"</span>,</span><br><span class="line">         <span class="string">"//tensorflow/cc:client_session"</span>,</span><br><span class="line">         <span class="string">"//tensorflow/core:tensorflow"</span></span><br><span class="line">         ],</span><br><span class="line"> )</span><br></pre></td></tr></table></figure>
+<p>回到仓库的根目录，执行下面的编译语句。<code>//tensorflow/demo</code>是BUILD文件的位置，<code>demo</code>表示目标文件的名字。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bazel build //tensorflow/demo:demo</span><br></pre></td></tr></table></figure>
+<p>第一次编译需要很久，之后就很快了。在<code>bazel_bin/tensorflow/demo</code>文件夹下会有编译好的<code>demo</code>可执行文件。在该目录下执行命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./demo</span><br></pre></td></tr></table></figure>
+<p>即可得到模型计算出的答案<code>[[3],[7]]</code>。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>至此，使用<code>bazel</code>编写调用TensorFlow离线模型的C++基本功能已经实现了。但是官方文档不是很全面，实现的方法还不灵活，如果遇到了其他的应用场景很可能代码不能正常工作了。所以需要找到比较好的文档，更加深入了解TensorFlow的C++ API。</p>
+<p>另外，官方文档提到C++ API的调用只能通过<code>bazel</code>编译的方式，而C API可以通过先将TensorFlow编译为动态链接库，再使用其他编译工具链接到自己代码的方法使用，可以一试。</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.jianshu.com/p/0c415b90404e" target="_blank" rel="noopener">Tensorflow C++ API调用Python预训练模型</a></p>
+<p><a href="https://github.com/hemajun815/tutorial/blob/master/tensorflow/compilling-tensorflow-source-code-into-C%2B%2B-library-file.md" target="_blank" rel="noopener">hemajun815/tutorial</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/TensorFlow/" rel="tag"># TensorFlow</a>
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/21/slu-attention-rnn/" rel="next" title="Attention-Based Recurrent Neural Network Models for Joint Intent Detection and Slot Filling">
+                <i class="fa fa-chevron-left"></i> Attention-Based Recurrent Neural Network Models for Joint Intent Detection and Slot Filling
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://owxv9mpb2.bkt.clouddn.com/cyh.jpeg"
+                alt="dannyw" />
+            
+              <p class="site-author-name" itemprop="name">dannyw</p>
+              <p class="site-description motion-element" itemprop="description">wangliubupt@163.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bazel-安装"><span class="nav-number">1.1.</span> <span class="nav-text">bazel 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载TensorFlow的源代码"><span class="nav-number">1.2.</span> <span class="nav-text">下载TensorFlow的源代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备好模型部分"><span class="nav-number">2.</span> <span class="nav-text">准备好模型部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-调用"><span class="nav-number">3.</span> <span class="nav-text">C++ 调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#C-代码"><span class="nav-number">3.1.</span> <span class="nav-text">C++ 代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译"><span class="nav-number">3.2.</span> <span class="nav-text">编译</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">5.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https:///busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright" style="text-align:center">
+
+<span id="busuanzi_container_site_pv">
+    总访问量: <span id="busuanzi_value_site_pv"></span>次
+</span>
+<span id="busuanzi_container_site_uv">
+  访客数: <span id="busuanzi_value_site_uv"></span>人次
+</span>
+
+<br>
+&copy; <span itemprop="copyrightYear">2018</span>
+
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">dannyw</span>
+
+  
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+  <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("bMsLV2gAIN9z6YVc8dtXr53l-gzGzoHsz", "y9oyCVpj2Vzlpi90XymKT7oJ");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = '0 ' + $(document.getElementById(url)).text();
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = object.get('time') + ' ' + $(document.getElementById(url)).text();
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content =  counter.get('time') + ' ' + $(document.getElementById(url)).text();
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = newcounter.get('time') + ' ' + $(document.getElementById(url)).text();
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+}); 
+</script>
+  
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("bMsLV2gAIN9z6YVc8dtXr53l-gzGzoHsz", "y9oyCVpj2Vzlpi90XymKT7oJ");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
