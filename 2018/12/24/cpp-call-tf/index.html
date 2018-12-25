@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Dannyw&#39;s Blog">
 <meta property="og:description" content="之前都是使用python训练模型，使用python加载模型预测结果。正好遇到了一个需要使用C++加载模型预测结果的需求，趁这个机会学习一下相关的流程。 对于C++的TensorFlow Api，官方文档介绍只能通过bazel编译使用。所以先将介绍如何使用bazel来编译调用TensorFlow模型的C++代码。 准备工作bazel 安装bazel官方文档写的很清楚，可以根据自己的平台选择安装方法，">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-24T14:51:24.000Z">
+<meta property="og:updated_time" content="2018-12-25T12:47:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用C++调用TensorFlow模型简单说明">
 <meta name="twitter:description" content="之前都是使用python训练模型，使用python加载模型预测结果。正好遇到了一个需要使用C++加载模型预测结果的需求，趁这个机会学习一下相关的流程。 对于C++的TensorFlow Api，官方文档介绍只能通过bazel编译使用。所以先将介绍如何使用bazel来编译调用TensorFlow模型的C++代码。 准备工作bazel 安装bazel官方文档写的很清楚，可以根据自己的平台选择安装方法，">
@@ -445,6 +445,9 @@
 <p>第一次编译需要很久，之后就很快了。在<code>bazel_bin/tensorflow/demo</code>文件夹下会有编译好的<code>demo</code>可执行文件。在该目录下执行命令</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./demo</span><br></pre></td></tr></table></figure>
 <p>即可得到模型计算出的答案<code>[[3],[7]]</code>。</p>
+<h3 id="使用GPU运行"><a href="#使用GPU运行" class="headerlink" title="使用GPU运行"></a>使用GPU运行</h3><p>首先，如果希望编译出的代码在运行时可以调用GPU运行，那么必须在重新配置TensorFlow(在仓库根目录下，运行命令<code>./configure</code>)，需要enable cuda，之后需要填写cuda版本和路径，cudnn的版本和路径。配置完毕后，在使用<code>bazel</code>编译代码时，加上<code>--config=cuda</code>的参数，编译命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bazel build -c opt --config=cuda //tensorflow/demo:demo</span><br></pre></td></tr></table></figure>
+<p>再运行<code>demo</code>，则发现预测过程是在GPU上计算了。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>至此，使用<code>bazel</code>编写调用TensorFlow离线模型的C++基本功能已经实现了。但是官方文档不是很全面，实现的方法还不灵活，如果遇到了其他的应用场景很可能代码不能正常工作了。所以需要找到比较好的文档，更加深入了解TensorFlow的C++ API。</p>
 <p>另外，官方文档提到C++ API的调用只能通过<code>bazel</code>编译的方式，而C API可以通过先将TensorFlow编译为动态链接库，再使用其他编译工具链接到自己代码的方法使用，可以一试。</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.jianshu.com/p/0c415b90404e" target="_blank" rel="noopener">Tensorflow C++ API调用Python预训练模型</a></p>
@@ -625,7 +628,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bazel-安装"><span class="nav-number">1.1.</span> <span class="nav-text">bazel 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载TensorFlow的源代码"><span class="nav-number">1.2.</span> <span class="nav-text">下载TensorFlow的源代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备好模型部分"><span class="nav-number">2.</span> <span class="nav-text">准备好模型部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-调用"><span class="nav-number">3.</span> <span class="nav-text">C++ 调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#C-代码"><span class="nav-number">3.1.</span> <span class="nav-text">C++ 代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译"><span class="nav-number">3.2.</span> <span class="nav-text">编译</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">5.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bazel-安装"><span class="nav-number">1.1.</span> <span class="nav-text">bazel 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载TensorFlow的源代码"><span class="nav-number">1.2.</span> <span class="nav-text">下载TensorFlow的源代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备好模型部分"><span class="nav-number">2.</span> <span class="nav-text">准备好模型部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-调用"><span class="nav-number">3.</span> <span class="nav-text">C++ 调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#C-代码"><span class="nav-number">3.1.</span> <span class="nav-text">C++ 代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译"><span class="nav-number">3.2.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用GPU运行"><span class="nav-number">3.3.</span> <span class="nav-text">使用GPU运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">5.</span> <span class="nav-text">Reference</span></a></li></ol></div>
             
 
           </div>
