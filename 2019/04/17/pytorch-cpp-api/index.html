@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="在要求低延迟、脚本部署的生存环境，C++是更被青睐的语言。在之前版本的PyTorch提供的都是Python语言的接口，PyTorch1.0`版本的发布带来了C++的前端，为生产环境的部署带来了方便。 1. 将Pytorch Model转换为Torch Script首先，C++能够理解的模型不是原生的Python版本的模型，而是需要通过Torch Script编译和序列化Python模型，C++调用">
+<meta name="description" content="在要求低延迟、脚本部署的生存环境，C++是更被青睐的语言。在之前版本的PyTorch提供的都是Python语言的接口，PyTorch1.0版本的发布带来了C++的前端，为生产环境的部署带来了方便。 1. 将Pytorch Model转换为Torch Script首先，C++能够理解的模型不是原生的Python版本的模型，而是需要通过Torch Script编译和序列化Python模型，C++调用序">
 <meta name="keywords" content="pytorch,c++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PyTorch C++ API初探">
 <meta property="og:url" content="http://yoursite.com/2019/04/17/pytorch-cpp-api/index.html">
 <meta property="og:site_name" content="Dannyw&#39;s Blog">
-<meta property="og:description" content="在要求低延迟、脚本部署的生存环境，C++是更被青睐的语言。在之前版本的PyTorch提供的都是Python语言的接口，PyTorch1.0`版本的发布带来了C++的前端，为生产环境的部署带来了方便。 1. 将Pytorch Model转换为Torch Script首先，C++能够理解的模型不是原生的Python版本的模型，而是需要通过Torch Script编译和序列化Python模型，C++调用">
+<meta property="og:description" content="在要求低延迟、脚本部署的生存环境，C++是更被青睐的语言。在之前版本的PyTorch提供的都是Python语言的接口，PyTorch1.0版本的发布带来了C++的前端，为生产环境的部署带来了方便。 1. 将Pytorch Model转换为Torch Script首先，C++能够理解的模型不是原生的Python版本的模型，而是需要通过Torch Script编译和序列化Python模型，C++调用序">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-20T08:04:33.000Z">
+<meta property="og:updated_time" content="2019-04-20T08:06:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PyTorch C++ API初探">
-<meta name="twitter:description" content="在要求低延迟、脚本部署的生存环境，C++是更被青睐的语言。在之前版本的PyTorch提供的都是Python语言的接口，PyTorch1.0`版本的发布带来了C++的前端，为生产环境的部署带来了方便。 1. 将Pytorch Model转换为Torch Script首先，C++能够理解的模型不是原生的Python版本的模型，而是需要通过Torch Script编译和序列化Python模型，C++调用">
+<meta name="twitter:description" content="在要求低延迟、脚本部署的生存环境，C++是更被青睐的语言。在之前版本的PyTorch提供的都是Python语言的接口，PyTorch1.0版本的发布带来了C++的前端，为生产环境的部署带来了方便。 1. 将Pytorch Model转换为Torch Script首先，C++能够理解的模型不是原生的Python版本的模型，而是需要通过Torch Script编译和序列化Python模型，C++调用序">
 
 
 
@@ -407,7 +407,7 @@
       
 
       
-        <p>在要求低延迟、脚本部署的生存环境，C++是更被青睐的语言。在之前版本的<code>PyTorch</code>提供的都是<code>Python</code>语言的接口，PyTorch1.0`版本的发布带来了C++的前端，为生产环境的部署带来了方便。</p>
+        <p>在要求低延迟、脚本部署的生存环境，C++是更被青睐的语言。在之前版本的<code>PyTorch</code>提供的都是<code>Python</code>语言的接口，PyTorch1.0版本的发布带来了C++的前端，为生产环境的部署带来了方便。</p>
 <h2 id="1-将Pytorch-Model转换为Torch-Script"><a href="#1-将Pytorch-Model转换为Torch-Script" class="headerlink" title="1. 将Pytorch Model转换为Torch Script"></a>1. 将<code>Pytorch Model</code>转换为<code>Torch Script</code></h2><p>首先，C++能够理解的模型不是原生的Python版本的模型，而是需要通过<code>Torch Script</code>编译和序列化Python模型，C++调用序列化后的模型进行预测。</p>
 <p>官方给出了两种将<code>PyTorch</code>模型转换为<code>Torch Script</code>的方法，第一种是通过<code>torch.jit.trace</code>方法，该方法缺点是在<code>forward()</code>中不能有复杂的条件控制，优点是操作比较方便；第二种是通过<code>@torch.jit.script_method</code>装饰器的方式，该方法需要重写<code>PyTorch</code>的模型，较为麻烦，但是允许<code>forward()</code>中有条件控制。</p>
 <h4 id="1-1-通过torch-jit-trace方法转换"><a href="#1-1-通过torch-jit-trace方法转换" class="headerlink" title="1.1 通过torch.jit.trace方法转换"></a>1.1 通过<code>torch.jit.trace</code>方法转换</h4><p>我们先新建一个简单的线性模型</p>
@@ -583,7 +583,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
