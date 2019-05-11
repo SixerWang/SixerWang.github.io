@@ -88,7 +88,7 @@
 <meta property="og:description" content="A Dual-Stage Attention-Based Recurrent Neural Network for Time Series Prediction 本篇论文针对现有NARX(Nonlinear autoregressive exogenous)模型的不足，提出了包含两个Attention机制、基于循环神经网络的新模型结构。NARX系列模型主要解决的问题是，给定时间序列的历史值以及历史">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://daniner-blog.oss-cn-hongkong.aliyuncs.com/paper-reading/time_series/dual-rnn.jpg">
-<meta property="og:updated_time" content="2019-05-11T16:40:33.000Z">
+<meta property="og:updated_time" content="2019-05-11T16:43:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="A Dual-Stage Attention-Based Recurrent Neural Network for Time Series Prediction">
 <meta name="twitter:description" content="A Dual-Stage Attention-Based Recurrent Neural Network for Time Series Prediction 本篇论文针对现有NARX(Nonlinear autoregressive exogenous)模型的不足，提出了包含两个Attention机制、基于循环神经网络的新模型结构。NARX系列模型主要解决的问题是，给定时间序列的历史值以及历史">
@@ -452,7 +452,7 @@ y_t = V_y^T(W_Y[d_T:c_T] + b_w) + b_y</script><blockquote>
 </blockquote>
 <p>实验还对比了不同的窗口大小T和循环网络的隐藏层维度hidden_size对模型效果的影响，给出了最好的T和hidden_size。</p>
 <h3 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h3><p>可以借鉴论文提出的两种Attention机制的思想，但是也要认识到和数据集的强相关性。</p>
-<h4 id="4-论文复现"><a href="#4-论文复现" class="headerlink" title="4. 论文复现"></a>4. 论文复现</h4>
+<h3 id="4-论文复现"><a href="#4-论文复现" class="headerlink" title="4. 论文复现"></a>4. 论文复现</h3>
       
     </div>
     
@@ -626,7 +626,7 @@ y_t = V_y^T(W_Y[d_T:c_T] + b_w) + b_y</script><blockquote>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-模型细节"><span class="nav-number">1.</span> <span class="nav-text">1. 模型细节</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-Encoder部分的Input-Attention-Mechanism"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Encoder部分的Input Attention Mechanism</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-Decoder部分的Temporal-Attention-Mechanism"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Decoder部分的Temporal Attention Mechanism</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-实验"><span class="nav-number">2.</span> <span class="nav-text">2. 实验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-数据"><span class="nav-number">3.</span> <span class="nav-text">2.1 数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-实验结果"><span class="nav-number">4.</span> <span class="nav-text">2.2 实验结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-总结"><span class="nav-number">5.</span> <span class="nav-text">3. 总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-论文复现"><span class="nav-number">5.1.</span> <span class="nav-text">4. 论文复现</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-模型细节"><span class="nav-number">1.</span> <span class="nav-text">1. 模型细节</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-Encoder部分的Input-Attention-Mechanism"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Encoder部分的Input Attention Mechanism</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-Decoder部分的Temporal-Attention-Mechanism"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Decoder部分的Temporal Attention Mechanism</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-实验"><span class="nav-number">2.</span> <span class="nav-text">2. 实验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-数据"><span class="nav-number">3.</span> <span class="nav-text">2.1 数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-实验结果"><span class="nav-number">4.</span> <span class="nav-text">2.2 实验结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-总结"><span class="nav-number">5.</span> <span class="nav-text">3. 总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-论文复现"><span class="nav-number">6.</span> <span class="nav-text">4. 论文复现</span></a></li></ol></div>
             
 
           </div>
