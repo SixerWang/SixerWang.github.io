@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[A Dual-Stage Attention-Based Recurrent Neural Network for Time Series Prediction]]></title>
     <url>%2F2019%2F05%2F11%2Fdual-rnn%2F</url>
-    <content type="text"><![CDATA[A Dual-Stage Attention-Based Recurrent Neural Network for Time Series Prediction 本篇论文针对现有NARX(Nonlinear autoregressive exogenous)模型的不足，提出了包含两个Attention机制、基于循环神经网络的新模型结构。NARX系列模型主要解决的问题是，给定时间序列的历史值以及历史和当前的multiple driving (exogenous)数据，预测当前时刻的序列值。举个简单的例子，股票市场的指数数据是典型的时间序列，每个时刻的指数是当前时刻的序列值，而市场上主要的股票价格则为multiple driving (exogenous)值。当然，multiple driving (exoge-nous)也可以理解为是当前时刻的一些特征值。 1. 模型细节Dual-RNN的模型结构与机器翻译中的Encoder-Decoder模型很类似，采用Encoder对数据的特征部分进行处理，再使用Decoder根据历史的序列值预测当前的序列值，特征部分类似机器翻译中的使用词向量嵌入后的源文本。 该模型的主要创新点是提出了两个Attention的结构，如下图所示。一个是Input Attention Mechanism，位于Encoder部分，另一个是Temporal Attention Mechanism，位于Decoder部分。 1.1 Encoder部分的Input Attention Mechanism该部分设计的思路是，预测对每个特征的依赖程度不同，所以希望根据Encoder层的RNN输出的结果对输入的特征进行注意力机制计算。计算过程如上图所示，在处理t时刻的特征输入时，根据上一个时刻RNN的隐藏层状态计算每个特征的权重，然后对各个维度特征乘以相应的权重，在送给RNN进行计算（这个地方的Attention计算确实和我们见过的一般Attention很不一样，我读到这里的时候也觉得很奇怪）。 具体计算公式为: \begin{align*} e_t^k & = V_e^Ttanh(W_e[h_{t-1}:s_{t-1}] + U_ex^k)\\ \alpha_t^k &= \frac{exp(e_t^k)}{\sum_{i=1}^nexp(e_t^k)} \end{align*}其中，e_t^k是权重的绝对大小，\alpha_t^k是使用softmax计算后的概率权重（其实此处就有点奇怪，一般为了求和才会用softmax变为权重和1的形式，此处不是对特征加权平均，而是直接对应位置特征乘以权重）。 最后对于t时刻的输入x_t就可以变为x_t^- x_t^- = \{\alpha_t^1x_t^1, ..., \alpha_t^nx_t^n\}^T得到t时刻的x_t^-后，将x_t^-作为RNN真正的输入，计算h_{t}和s_{t}（论文中采用LSTM作为RNN的基本单元，所以有隐藏层状态和记忆状态），并依此计算x_{t+1}^-。 注意，因为此处注意力机制的特殊计算方法，在具体实现时，要么改写LSTM的内部计算代码，要么一个一个Time Step进行RNN计算。 1.2 Decoder部分的Temporal Attention MechanismDecoder部分的Attention计算和机器翻译中经典的注意力机制计算很类似，设计的主要目的是解决RNN的长距离依赖问题。 \begin{align*} l_t^i & = V_d^Ttanh(W_d[d_{t-1}:ds_{t-1}] + U_dh_i)\\ \beta_t^i &= \frac{exp(l_t^i)}{\sum_{j=1}^Texp(l_t^j)}\\ c_t &= \sum_i^T\beta_t^ih_i \end{align*}在计算Decoder部分t时刻的输入时，根据Decoder部分的RNN t-1 时刻隐藏层状态以及Encoder部分各个隐藏层输出计算Attention权重，最后计算得到t时刻的Attention值c_t。 再根据t-1时刻的序列值以及Attention值经过一个线性层，计算得到t时刻RNN的输入y_t^-： y_t^- = W^-[y_{t-1}:c_{t-1}] + b^-最后，根据最后的隐藏层输出值经过一个线性层计算最终的序列预测值： y_t = V_y^T(W_Y[d_T:c_T] + b_w) + b_y （个人觉得此处的结果有过度设计之嫌，在计算RNN的输入时还需要引入一个线性层。） 2. 实验2.1 数据本文用了两组测试数据，一组是用于室内温度预测的公共数据集SML2010，另一组是股票指数预测的NASDAQ100股票数据集，本博客只会针对股票数据集的实验进行分析。 在NASDAQ100股票数据集中，要预测的序列值是纳斯达克指数，而额外的特征值则是81只个股的股票价格。 注意，我们都知道指数是根据指定的若干只股票根据某种方法计算得来的，所以用个股去预测指数，个股的价格作为特征未免也太强大了一些。如果，仅仅预测股票价格的角度，很难找到如此强相关的特征吧。同时，在预测当天指数时，当天的个股股价也做了输入，这样的话，模型更像是拟合了指数计算的权重，而并不是做了预测。所以，对于论文取得的极好效果，是恰好在该数据集上效果好，还是模型本身拟合能力强，就很难评判了。 2.2 实验结果实验通过网格搜索确定了一些较好的参数，同时比对了一些经典的方法，该模型在数据集达到了最好的效果，主要的评价指标是MAE、MAPE、RMSE。值得一提的是，论文用只有Input Attention Mechanism的RNN模型与Dual-RNN进行了对比，发现效果并没有差太多，而带有Input Attention Mechanism的Input-Attn-RNN具有较大的提高，说明Input Attention Mechanism起到了很大作用。 联想到指数的计算过程，我们很容易想到拟合输入特征权重的Input Attention Mechanism会起到很大作用，从另一个方面印证了本论文中的较好实验结果，是因为恰好在该数据集上效果好，还是模型本身拟合能努力强。 实验还对比了不同的窗口大小T和循环网络的隐藏层维度hidden_size对模型效果的影响，给出了最好的T和hidden_size。 3. 总结可以借鉴论文提出的两种Attention机制的思想，但是也要认识到和数据集的强相关性。 4. 论文复现]]></content>
+    <content type="text"><![CDATA[A Dual-Stage Attention-Based Recurrent Neural Network for Time Series Prediction 本篇论文针对现有NARX(Nonlinear autoregressive exogenous)模型的不足，提出了包含两个Attention机制、基于循环神经网络的新模型结构。NARX系列模型主要解决的问题是，给定时间序列的历史值以及历史和当前的multiple driving (exogenous)数据，预测当前时刻的序列值。举个简单的例子，股票市场的指数数据是典型的时间序列，每个时刻的指数是当前时刻的序列值，而市场上主要的股票价格则为multiple driving (exogenous)值。当然，multiple driving (exoge-nous)也可以理解为是当前时刻的一些特征值。 1. 模型细节Dual-RNN的模型结构与机器翻译中的Encoder-Decoder模型很类似，采用Encoder对数据的特征部分进行处理，再使用Decoder根据历史的序列值预测当前的序列值，特征部分类似机器翻译中的使用词向量嵌入后的源文本。 该模型的主要创新点是提出了两个Attention的结构，如下图所示。一个是Input Attention Mechanism，位于Encoder部分，另一个是Temporal Attention Mechanism，位于Decoder部分。 1.1 Encoder部分的Input Attention Mechanism该部分设计的思路是，预测对每个特征的依赖程度不同，所以希望根据Encoder层的RNN输出的结果对输入的特征进行注意力机制计算。计算过程如上图所示，在处理t时刻的特征输入时，根据上一个时刻RNN的隐藏层状态计算每个特征的权重，然后对各个维度特征乘以相应的权重，在送给RNN进行计算（这个地方的Attention计算确实和我们见过的一般Attention很不一样，我读到这里的时候也觉得很奇怪）。 具体计算公式为: \begin{align*} e_t^k & = V_e^Ttanh(W_e[h_{t-1}:s_{t-1}] + U_ex^k)\\ \alpha_t^k &= \frac{exp(e_t^k)}{\sum_{i=1}^nexp(e_t^k)} \end{align*}其中，e_t^k是权重的绝对大小，\alpha_t^k是使用softmax计算后的概率权重（其实此处就有点奇怪，一般为了求和才会用softmax变为权重和1的形式，此处不是对特征加权平均，而是直接对应位置特征乘以权重）。 最后对于t时刻的输入x_t就可以变为x_t^- x_t^- = \{\alpha_t^1x_t^1, ..., \alpha_t^nx_t^n\}^T得到t时刻的x_t^-后，将x_t^-作为RNN真正的输入，计算h_{t}和s_{t}（论文中采用LSTM作为RNN的基本单元，所以有隐藏层状态和记忆状态），并依此计算x_{t+1}^-。 注意，因为此处注意力机制的特殊计算方法，在具体实现时，要么改写LSTM的内部计算代码，要么一个一个Time Step进行RNN计算。 1.2 Decoder部分的Temporal Attention MechanismDecoder部分的Attention计算和机器翻译中经典的注意力机制计算很类似，设计的主要目的是解决RNN的长距离依赖问题。 \begin{align*} l_t^i & = V_d^Ttanh(W_d[d_{t-1}:ds_{t-1}] + U_dh_i)\\ \beta_t^i &= \frac{exp(l_t^i)}{\sum_{j=1}^Texp(l_t^j)}\\ c_t &= \sum_i^T\beta_t^ih_i \end{align*}在计算Decoder部分t时刻的输入时，根据Decoder部分的RNN t-1 时刻隐藏层状态以及Encoder部分各个隐藏层输出计算Attention权重，最后计算得到t时刻的Attention值c_t。 再根据t-1时刻的序列值以及Attention值经过一个线性层，计算得到t时刻RNN的输入y_t^-： y_t^- = W^-[y_{t-1}:c_{t-1}] + b^-最后，根据最后的隐藏层输出值经过一个线性层计算最终的序列预测值： y_t = V_y^T(W_Y[d_T:c_T] + b_w) + b_y （个人觉得此处的结果有过度设计之嫌，在计算RNN的输入时还需要引入一个线性层。） 2. 实验2.1 数据本文用了两组测试数据，一组是用于室内温度预测的公共数据集SML2010，另一组是股票指数预测的NASDAQ100股票数据集，本博客只会针对股票数据集的实验进行分析。 在NASDAQ100股票数据集中，要预测的序列值是纳斯达克指数，而额外的特征值则是81只个股的股票价格。 注意，我们都知道指数是根据指定的若干只股票根据某种方法计算得来的，所以用个股去预测指数，个股的价格作为特征未免也太强大了一些。如果，仅仅预测股票价格的角度，很难找到如此强相关的特征吧。同时，在预测当天指数时，当天的个股股价也做了输入，这样的话，模型更像是拟合了指数计算的权重，而并不是做了预测。所以，对于论文取得的极好效果，是恰好在该数据集上效果好，还是模型本身拟合能力强，就很难评判了。 2.2 实验结果实验通过网格搜索确定了一些较好的参数，同时比对了一些经典的方法，该模型在数据集达到了最好的效果，主要的评价指标是MAE、MAPE、RMSE。值得一提的是，论文用只有Input Attention Mechanism的RNN模型与Dual-RNN进行了对比，发现效果并没有差太多，而带有Input Attention Mechanism的Input-Attn-RNN具有较大的提高，说明Input Attention Mechanism起到了很大作用。 联想到指数的计算过程，我们很容易想到拟合输入特征权重的Input Attention Mechanism会起到很大作用，从另一个方面印证了本论文中的较好实验结果，是因为恰好在该数据集上效果好，还是模型本身拟合能努力强。 实验还对比了不同的窗口大小T和循环网络的隐藏层维度hidden_size对模型效果的影响，给出了最好的T和hidden_size。 3. 总结可以借鉴论文提出的两种Attention机制的思想，但是也要认识到和数据集的强相关性。 4. 论文复现Dual-attention-rnn]]></content>
       <categories>
         <category>paper_reading</category>
       </categories>
@@ -91,9 +91,9 @@
         <category>paper_reading</category>
       </categories>
       <tags>
+        <tag>机器阅读理解</tag>
         <tag>transformer</tag>
         <tag>self-attention</tag>
-        <tag>机器阅读理解</tag>
         <tag>QANet</tag>
       </tags>
   </entry>
@@ -105,8 +105,8 @@
         <category>算法题</category>
       </categories>
       <tags>
-        <tag>剑指offer</tag>
         <tag>算法</tag>
+        <tag>剑指offer</tag>
       </tags>
   </entry>
   <entry>
@@ -150,9 +150,9 @@
         <category>paper_reading</category>
       </categories>
       <tags>
-        <tag>机器翻译</tag>
         <tag>transformer</tag>
         <tag>self-attention</tag>
+        <tag>机器翻译</tag>
       </tags>
   </entry>
   <entry>
@@ -185,8 +185,8 @@
         <category>算法题</category>
       </categories>
       <tags>
-        <tag>算法</tag>
         <tag>leetcode</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
