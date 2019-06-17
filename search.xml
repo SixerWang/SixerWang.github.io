@@ -107,9 +107,9 @@
         <category>paper_reading</category>
       </categories>
       <tags>
-        <tag>机器阅读理解</tag>
         <tag>transformer</tag>
         <tag>self-attention</tag>
+        <tag>机器阅读理解</tag>
         <tag>QANet</tag>
       </tags>
   </entry>
@@ -121,8 +121,8 @@
         <category>算法题</category>
       </categories>
       <tags>
-        <tag>剑指offer</tag>
         <tag>算法</tag>
+        <tag>剑指offer</tag>
       </tags>
   </entry>
   <entry>
@@ -166,9 +166,9 @@
         <category>paper_reading</category>
       </categories>
       <tags>
+        <tag>机器翻译</tag>
         <tag>transformer</tag>
         <tag>self-attention</tag>
-        <tag>机器翻译</tag>
       </tags>
   </entry>
   <entry>
@@ -201,8 +201,8 @@
         <category>算法题</category>
       </categories>
       <tags>
-        <tag>算法</tag>
         <tag>leetcode</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
