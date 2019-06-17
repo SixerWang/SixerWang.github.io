@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="python," />
 
 
 
@@ -79,16 +79,18 @@
 
 
 
-<meta name="description" content="wangliubupt@163.com">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Dannyw&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/tags/python/index.html">
+<meta name="description" content="最近在做数据预处理时，因为要使用父类的一些功能，所以希望继承父类实现自己的数据预处理子类。具体的实现是：子类重写了父类的方法，在子类的方法中显示调用了父类的同名该方法，结果运行后发现子类的方法被调用了多次，造成了结果与实际不一样。经过查看父类的该同名方法发现，父类方法实现过程中进行了递归调用，所以，在父类方法中有递归调用时，且子类方法重写时调用了父类方法，则需要注意多次调用的问题。 简化版的代码如">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python中override父类方法的坑">
+<meta property="og:url" content="http://yoursite.com/2019/06/17/python-override/index.html">
 <meta property="og:site_name" content="Dannyw&#39;s Blog">
-<meta property="og:description" content="wangliubupt@163.com">
+<meta property="og:description" content="最近在做数据预处理时，因为要使用父类的一些功能，所以希望继承父类实现自己的数据预处理子类。具体的实现是：子类重写了父类的方法，在子类的方法中显示调用了父类的同名该方法，结果运行后发现子类的方法被调用了多次，造成了结果与实际不一样。经过查看父类的该同名方法发现，父类方法实现过程中进行了递归调用，所以，在父类方法中有递归调用时，且子类方法重写时调用了父类方法，则需要注意多次调用的问题。 简化版的代码如">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-17T04:40:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Dannyw&#39;s Blog">
-<meta name="twitter:description" content="wangliubupt@163.com">
+<meta name="twitter:title" content="python中override父类方法的坑">
+<meta name="twitter:description" content="最近在做数据预处理时，因为要使用父类的一些功能，所以希望继承父类实现自己的数据预处理子类。具体的实现是：子类重写了父类的方法，在子类的方法中显示调用了父类的同名该方法，结果运行后发现子类的方法被调用了多次，造成了结果与实际不一样。经过查看父类的该同名方法发现，父类方法实现过程中进行了递归调用，所以，在父类方法中有递归调用时，且子类方法重写时调用了父类方法，则需要注意多次调用的问题。 简化版的代码如">
 
 
 
@@ -118,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/python/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/06/17/python-override/"/>
 
 
 
 
 
-  <title>Tag: python | Dannyw's Blog</title>
+  <title>python中override父类方法的坑 | Dannyw's Blog</title>
   
 
 
@@ -153,7 +155,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -291,82 +293,167 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>python<small>Tag</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/17/python-override/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="dannyw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://owxv9mpb2.bkt.clouddn.com/cyh.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dannyw's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/06/17/python-override/" itemprop="url">
-              
-                <span itemprop="name">python中override父类方法的坑</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">python中override父类方法的坑</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-06-17T12:22:53+08:00"
-              content="2019-06-17" >
-          06-17
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-17T12:22:53+08:00">
+                2019-06-17
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/06/17/python-override/" class="leancloud_visitors" data-flag-title="python中override父类方法的坑">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+      
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/04/11/py-tools/" itemprop="url">
-              
-                <span itemprop="name">常用python工具速查</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-04-11T13:41:27+08:00"
-              content="2019-04-11" >
-          04-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
+        <p>最近在做数据预处理时，因为要使用父类的一些功能，所以希望继承父类实现自己的数据预处理子类。具体的实现是：子类重写了父类的方法，在子类的方法中显示调用了父类的同名该方法，结果运行后发现子类的方法被调用了多次，造成了结果与实际不一样。经过查看父类的该同名方法发现，父类方法实现过程中进行了递归调用，所以，在父类方法中有递归调用时，且子类方法重写时调用了父类方法，则需要注意多次调用的问题。</p>
+<p>简化版的代码如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">(self, n)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> n &lt;= <span class="number">1</span>:</span><br><span class="line">            print(n)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(n)</span><br><span class="line">            self.test(n<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyBase</span><span class="params">(Base)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">(self, n)</span>:</span></span><br><span class="line">        Base.test(self, n)</span><br><span class="line">        print(<span class="string">"ok"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    tb = MyBase()</span><br><span class="line">    tb.test(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<p>父类的<code>test</code>方法进行了递归调用，子类重写父类的<code>test</code>方法，且在子类<code>test</code>方法中调用了父类的方法。运行结果如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">2</span><br><span class="line">1</span><br><span class="line">ok</span><br><span class="line">ok</span><br><span class="line">ok</span><br></pre></td></tr></table></figure>
+<p>我们发现子类方法的<code>print(&quot;ok&quot;)</code>被调用了多次，经过单步调试后发现，父类的<code>test</code>方法在递归调用时，调用的是子类的<code>test</code>方法，所以会出现这个bug。仔细一下，应该是此处的父类的<code>self</code>引用已经指向了子类。因此，我们在父类<code>test</code>方法中显示调用父类的<code>test</code>方法，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">(self, n)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> n &lt;= <span class="number">1</span>:</span><br><span class="line">            print(n)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(n)</span><br><span class="line">            Base.test(self, n<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyBase</span><span class="params">(Base)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">(self, n)</span>:</span></span><br><span class="line">        Base.test(self, n)</span><br><span class="line">        print(<span class="string">"ok"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    tb = MyBase()</span><br><span class="line">    tb.test(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<p>运行后结果如我们预期：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">2</span><br><span class="line">1</span><br><span class="line">ok</span><br></pre></td></tr></table></figure>
+<p>所以，关于继承关系中<code>self</code>引用的类已经改变了的猜想是对的。这个问题后续需要更加深入了解，<code>self</code>的具体机制，还有在重写基类方法时，如果需要显示调用基类方法，则注意基类方法中是否含有递归调用。</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/23/quant-book-dp/" rel="next" title="<<量化投资-策略与技术(丁鹏)>>读书笔记">
+                <i class="fa fa-chevron-left"></i> <<量化投资-策略与技术(丁鹏)>>读书笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -374,6 +461,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -679,6 +770,10 @@ $(function() {
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
