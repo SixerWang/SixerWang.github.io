@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://sixerwang.github.io/2018/09/20/QANet/</loc>
+    
+    <lastmod>2019-08-16T15:19:01.664Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://sixerwang.github.io/2019/08/16/shell/</loc>
     
-    <lastmod>2019-08-16T15:13:45.769Z</lastmod>
+    <lastmod>2019-08-16T15:16:12.382Z</lastmod>
     
   </url>
   
@@ -96,13 +103,6 @@
     <loc>http://sixerwang.github.io/2018/10/17/IDandSF/</loc>
     
     <lastmod>2018-12-20T14:47:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://sixerwang.github.io/2018/09/20/QANet/</loc>
-    
-    <lastmod>2018-12-20T14:43:08.000Z</lastmod>
     
   </url>
   
